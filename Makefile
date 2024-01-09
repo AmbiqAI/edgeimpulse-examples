@@ -84,6 +84,13 @@ LOCAL_INCLUDES += $(PROJECT)/src/ns-core
 LOCAL_INCLUDES += $(PROJECT)/src/edge-impulse-sdk/CMSIS/NN/Include/
 LOCAL_INCLUDES += $(PROJECT)/src/edge-impulse-sdk/CMSIS/DSP/PrivateInclude/
 
+# split $(objects) to avoid exceeding Windows command line length limit'
+objects_tf := $(call FILTER_IN,tensorflow,$(objects))
+objects_cmsis := $(call FILTER_IN,CMSIS,$(objects))
+objects_rest := $(call FILTER_OUT,tensorflow,$(objects))	
+objects_rest1 := $(call FILTER_OUT,CMSIS,$(objects_rest))
+libs +=  ../$(BINDIR)/wis_cmsis.a ../$(BINDIR)/wis_tf.a 
+
 CFLAGS     += $(addprefix -D,$(DEFINES))
 CFLAGS     += $(addprefix -I $(PROJECT)/includes/,$(INCLUDES))
 CFLAGS     += $(addprefix -I ,$(LOCAL_INCLUDES))
@@ -132,14 +139,18 @@ $(BINDIR)/%.o: %.s
 $(BINDIR)/$(local_app_name).axf: $(objects)
 	@echo " Linking $(COMPILERNAME) $@"
 	@mkdir -p $(@D)
-	$(Q) $(CC) -Wl,-T,$(LINKER_FILE) -o $@ $(objects) $(LFLAGS)
+# Break into multiple steps to avoid exceeding Windows command line length limit
+	$(Q) $(AR) rsc $(BINDIR)/wis_tf.a $(objects_tf)
+	$(Q) $(AR) rsc $(BINDIR)/wis_cmsis.a $(objects_cmsis)
+# $(Q) $(AR) rsc $(BINDIR)/wis_rest1.a $(objects_rest1)
+	$(Q) $(CC) -Wl,-T,$(LINKER_FILE) -o $@ $(objects_rest1) $(LFLAGS)
 
 $(BINDIR)/$(local_app_name).bin: $(BINDIR)/$(local_app_name).axf 
 	@echo " Copying $(COMPILERNAME) $@..."
 	@mkdir -p $(@D)
 	$(Q) $(CP) $(CPFLAGS) $< $@
 	$(Q) $(OD) $(ODFLAGS) $< > $(BINDIR)/$(local_app_name).lst
-	$(Q) $(SIZE) $(objects) $(lib_prebuilt) $< > $(BINDIR)/$(local_app_name).size
+# $(Q) $(SIZE) $(objects) $(lib_prebuilt) $< > $(BINDIR)/$(local_app_name).size
 
 $(JLINK_CF):
 	@echo " Creating JLink command sequence input file..."
