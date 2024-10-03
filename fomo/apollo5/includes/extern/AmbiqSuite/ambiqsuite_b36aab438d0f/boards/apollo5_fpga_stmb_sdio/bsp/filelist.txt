@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_bsp.c
+am_bsp.h
+am_bsp_pins.c
+am_bsp_pins.h
+bsp_pins.src

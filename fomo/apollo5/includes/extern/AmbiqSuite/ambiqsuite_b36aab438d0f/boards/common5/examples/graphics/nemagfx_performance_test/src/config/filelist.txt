@@ -1,0 +1,15 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+config_base.h
+config_morton.h
+config_rotate.h
+config_scale_rotate.h
+config_scale.h
+config_write_psram.h
+config_read_psram.h

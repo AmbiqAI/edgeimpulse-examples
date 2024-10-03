@@ -1,0 +1,21 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+benchmarks
+FreeRTOS_Plus_POSIX
+mith
+workloads
+coremark_pro.c
+coremark_pro.h
+FreeRTOSConfig.h
+heap_4_external.c
+heap_5_external.c
+psram.c
+psram.h
+rtos.c
+rtos.h

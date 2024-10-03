@@ -1,0 +1,89 @@
+//*****************************************************************************
+//
+// Copyright (c) 2022, Ambiq Micro, Inc.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice,
+// this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its
+// contributors may be used to endorse or promote products derived from this
+// software without specific prior written permission.
+//
+// Third party software included in this distribution is subject to the
+// additional license terms as defined in the /docs/licenses directory.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
+//*****************************************************************************
+
+#ifndef __AUST_GAIN_ELEMENT_H__
+#define __AUST_GAIN_ELEMENT_H__
+
+#include "aust_algo_element.h"
+
+#define GAIN_MAX_DB (100)
+
+#define GAIN_DEFAULT_DB (0)
+
+/// @brief GainElement is used for Gain process.
+///
+/// @ingroup PROPERTIES
+/// @{
+/// *****************************************************************
+/// ## Properties
+///
+/// - ***Gain***
+/// @code "gain" @endcode
+/// Gain coefficient should no more than 100 in dB.
+/// Default value: 0
+///
+/// *****************************************************************
+/// @}
+class GainElement : public AlgoElement
+{
+  private:
+    /// Gain enable.
+    int16_t enable_ = 1;
+
+    /// Gain in dB.
+    float gain_ = GAIN_DEFAULT_DB;
+
+    /// Fixed point gain. Q7 value. Default 128, 0dB.
+    int fixed_point_gain_ = 128;
+
+    /// @brief Specific state change event handler.
+    STATE_RETURN handleIdleToReady(void) override;
+
+    /// @brief Process the data of in sink pad.
+    /// @param pad Sink pad.
+    /// @return AUST_SUCCESS if handled successfully, otherwise AUST_ERROR.
+    AUST_ERR algoProcess(AustPad *pad) override;
+
+    /// @brief Get configuration.
+    /// @return true if get config successfully, otherwise false.
+    bool getConfig(void) override;
+
+  public:
+    GainElement();
+    ~GainElement();
+};
+
+#endif /* __AUST_GAIN_ELEMENT_H__ */

@@ -1,0 +1,114 @@
+# *****************************************************************************
+#                                                                             *
+#  bsp_pins.src                                                               *
+#                                                                             *
+#  Ambiq Micro BSP pins definitions                                           *
+#                                                                             *
+# *****************************************************************************
+
+# *****************************************************************************
+#
+# ${copyright}
+#
+# This is part of revision ${version} of the AmbiqSuite Development Package.
+#
+# *****************************************************************************
+
+# *****************************************************************************
+#                                                                             *
+# ${bsp_src_help}
+#                                                                             *
+# *****************************************************************************
+
+# *****************************************************************************
+#                                                                             *
+#  The .src file version determines the appropriate pin template to be used   *
+#  and thus is device dependent.                                              *
+#  Apollo4: 0x0004.                                                           *
+#                                                                             *
+# *****************************************************************************
+pinsrc_ver = 0x0005
+
+#  IOM0 pins.
+# *****************************************************************************
+pin
+    name            = IOM0_CS
+    desc            = I/O Master 0 chip select.
+    pinnum          = 50
+    func_sel        = NCE50
+    drvstrength     = 0P1X
+    intdir          = LO2HI
+    GPOutcfg        = PUSHPULL
+    GPinput         = NONE
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+    CEnum           = AM_HAL_GPIO_NCE_IOM0CE0
+    CEpol           = ACTIVELOW
+
+pin
+    name            = IOM0_MISO
+    desc            = I/O Master 0 SPI MISO signal.
+    pinnum          = 7
+    func_sel        = M0MISO
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+
+pin
+    name            = IOM0_MOSI
+    desc            = I/O Master 0 SPI MOSI signal.
+    pinnum          = 6
+    func_sel        = M0MOSI
+    drvstrength     = 0P1X
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SCK
+    desc            = I/O Master 0 SPI SCK signal.
+    pinnum          = 5
+    func_sel        = M0SCK
+    drvstrength     = 0P1X
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SCL
+    desc            = I/O Master 0 I2C clock signal.
+    pinnum          = 5
+    func_sel        = M0SCL
+    GPOutcfg        = OPENDRAIN
+    drvstrength     = 0P1X
+    pullup          = 1_5K
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SDA
+    desc            = I/O Master 0 I2C data signal.
+    pinnum          = 6
+    func_sel        = M0SDAWIR3
+    GPOutcfg        = OPENDRAIN
+    drvstrength     = 0P1X
+    pullup          = 1_5K
+    bIomMSPIn       = IOM
+    IOMnum          = 0
+
+# *****************************************************************************
+#  ITM SWO.
+# *****************************************************************************
+pin
+    name            = ITM_SWO
+    desc            = ITM Serial Wire Output.
+    pinnum          = 28
+    func_sel        = SWO
+    drvstrength     = 0P1X
+
+# *****************************************************************************
+#  defined DSI TE to eliminate error
+# *****************************************************************************
+pin
+    name            = DISP_DSI_TE
+    desc            = DISPLAY TE PIN
+    pinnum          = 63
+    func_sel        = DISP_TE
+    drvstrength     = 0P1X

@@ -1,0 +1,20 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+ambiq_core_config.h
+am_time.c
+am_time.h
+coremark.c
+coremark.h
+core_list_join.c
+core_main.c
+core_matrix.c
+core_portme.c
+core_portme.h
+core_state.c
+core_util.c

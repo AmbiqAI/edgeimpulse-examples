@@ -1,0 +1,11 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+iom_psram.c
+am_memory_map.h
+am_resources.c

@@ -1,0 +1,14 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+lv_conf.h
+Makefile
+readme.txt
+gcc
+iar
+keil

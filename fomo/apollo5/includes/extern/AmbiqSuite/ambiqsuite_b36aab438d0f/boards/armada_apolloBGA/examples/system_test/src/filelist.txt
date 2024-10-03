@@ -1,0 +1,10 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[normal]
+adxl362_read.c
+filelist.txt

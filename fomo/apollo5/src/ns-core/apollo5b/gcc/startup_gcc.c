@@ -165,10 +165,10 @@ extern int main(void);
 //
 //*****************************************************************************
 __attribute__ ((section(".stack")))
-static uint32_t g_pui32Stack[1024];
+static uint32_t g_pui32Stack[STACK_SIZE];
 
 __attribute__ ((section(".heap"))) __attribute__ ((__used__))
-static uint32_t g_pui32Heap[0];
+static uint32_t g_pui32Heap[3096];
 
 #define AM_STACK_SIZE   (sizeof(g_pui32Stack))
 #define AM_STACK_LIMIT  ((uint32_t)&g_pui32Stack)

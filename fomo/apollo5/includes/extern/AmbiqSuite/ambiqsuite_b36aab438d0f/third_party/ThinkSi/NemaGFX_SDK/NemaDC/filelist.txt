@@ -1,0 +1,17 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nema_dc_mipi.h
+nema_dc_regs.h
+nema_dc_intern.h
+nema_dc_dsi.h
+nema_dc_jdi.h
+
+[nemagfx-sdk]
+*ALL*
+

@@ -1,0 +1,3535 @@
+//*****************************************************************************
+//
+//! @file ambt53_reg_test.c
+//!
+//! @brief ambt53 register maps.
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+// ${copyright}
+//
+// This is part of revision ${version} of the AmbiqSuite Development Package.
+//
+//*****************************************************************************
+#include "am_mcu_apollo.h"
+#include "ambt53_reg_test.h"
+
+ambt53_reg_t btdmp_reg_list[] =
+{
+    {
+        TDM_CFG_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_CFG_RX_MASK,
+        DM_CFG_RX_RESET,
+    },
+    {
+        TDM_ENFLSH_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_ENFLSH_RX_RW_MASK,
+        DM_ENFLSH_RX_RESET,
+    },
+    {
+        TDM_PH12_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_PH12_RX_MASK,
+        DM_PH12_RX_RESET,
+    },
+    {
+        TDM_FRCFG_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_FRCFG_RX_MASK,
+        DM_FRCFG_RX_RESET,
+    },
+    {
+        TDM_CDIV_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_CDIV_RX_MASK,
+        DM_CDIV_RX_RESET,
+    },
+    {
+        TDM_MCEE_ADDR_RX(0),
+        REG_PROP_RW,
+        DM_MCEE_RX_MASK,
+        DM_MCEE_RX_RESET,
+    },
+    {
+        TDM_STAT_ADDR_RX(0),
+        REG_PROP_RO,
+        DM_STAT_RX_MASK,
+        DM_STAT_RX_RESET,
+    },
+    {
+        TDM_CFG_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_CFG_TX_MASK,
+        DM_CFG_TX_RESET,
+    },
+    {
+        TDM_ENFLSH_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_ENFLSH_TX_RW_MASK,
+        DM_ENFLSH_TX_RESET,
+    },
+    {
+        TDM_PH12_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_PH12_TX_MASK,
+        DM_PH12_TX_RESET,
+    },
+    {
+        TDM_FRCFG_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_FRCFG_TX_MASK,
+        DM_FRCFG_TX_RESET,
+    },
+    {
+        TDM_CDIV_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_CDIV_TX_MASK,
+        DM_CDIV_TX_RESET,
+    },
+    {
+        TDM_MCEE_ADDR_TX(0),
+        REG_PROP_RW,
+        DM_MCEE_TX_MASK,
+        DM_MCEE_TX_RESET,
+    },
+    {
+        TDM_STAT_ADDR_TX(0),
+        REG_PROP_RO,
+        DM_STAT_TX_MASK,
+        DM_STAT_TX_RESET,
+    }
+};
+#define REG_BTDMP_TEST_COUNT    (sizeof(btdmp_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bticu_reg_list[] =
+{
+    {
+        INTCNTL_IRQ_STATUS_ADDR,
+        REG_PROP_RO,                  //TO DO REG_PROP_RW in SPEC, maybe SPEC.ERR,it's used as REG_PROP_RO in ceva code
+        INTCNTL_IRQ_STATUS_MASK,
+        INTCNTL_IRQ_STATUS_RESET,
+    },
+    {
+        (INTCNTL_IRQ_STATUS_ADDR + 4),//reg_idx 2
+        REG_PROP_RO,                  //TO DO REG_PROP_RW in SPEC, maybe SPEC.ERR,it's used as REG_PROP_RO in ceva code
+        INTCNTL_IRQ_STATUS1_MASK,
+        INTCNTL_IRQ_STATUS_RESET,
+    },
+    {
+        INTCNTL_IRQ_RAW_STATUS_ADDR,
+        REG_PROP_WC,                //TO DO maybe SPEC.ERR maybe it's used to clear INTCNTL_IRQ_STATUS,but it's not used in ceva code
+        INTCNTL_IRQ_RAW_STATUS_MASK,
+        INTCNTL_IRQ_RAW_STATUS_RESET,
+     },
+     {
+        (INTCNTL_IRQ_RAW_STATUS_ADDR + 4),//reg_idx 2,
+        REG_PROP_WC,                 //TO DO maybe SPEC.ERR,it's used to clear INTCNTL_IRQ_STATUS,but it's not used in ceva code
+        INTCNTL_IRQ_RAW_STATUS1_MASK,
+        INTCNTL_IRQ_RAW_STATUS_RESET,
+    },
+    {
+        INTCNTL_IRQ_UNMASK_SET_ADDR,
+        REG_PROP_RW,                 //TO DO maybe SPEC.ERR,it's always 0x00000000 whatever  it's only written with
+        INTCNTL_IRQ_UNMASK_SET_MASK,
+        INTCNTL_IRQ_UNMASK_SET_RESET,
+    },
+    {
+        (INTCNTL_IRQ_UNMASK_SET_ADDR + 4),//reg_idx 2,
+        REG_PROP_RW,                 //TO DO maybe SPEC.ERR,it's always 0x00000000 whatever  it's only written with
+        INTCNTL_IRQ_UNMASK_SET1_MASK,
+        INTCNTL_IRQ_UNMASK_SET_RESET,
+    },
+    {
+        INTCNTL_IRQ_UNMASK_CLEAR_ADDR,
+        REG_PROP_RW,                  //TO DO maybe SPEC.ERR,it's always 0x00000000 whatever  it's only written with
+        INTCNTL_IRQ_UNMASK_CLEAR_MASK,
+        INTCNTL_IRQ_UNMASK_CLEAR_RESET,
+    },
+    {
+        (INTCNTL_IRQ_UNMASK_CLEAR_ADDR + 4),//reg_idx 2,
+        REG_PROP_RW,                    //TO DO maybe SPEC.ERR,it's always 0x00000000 whatever  it's only written with
+        INTCNTL_IRQ_UNMASK_CLEAR1_MASK,
+        INTCNTL_IRQ_UNMASK_CLEAR_RESET,
+    },
+    {
+        INTCNTL_IRQ_POLARITY_ADDR,
+        REG_PROP_RW,                 //TO DO maybe SPEC.ERR, it's always 0xFFFFFFFF whatever  it's only written with
+        INTCNTL_IRQ_POLARITY_MASK,
+        INTCNTL_IRQ_POLARITY_RESET,
+    },
+    {
+        (INTCNTL_IRQ_POLARITY_ADDR + 4),//reg_idx 2,
+        REG_PROP_RW,                   //TO DO maybe SPEC.ERR, it's always 0xFFFFFFFF whatever  it's only written with
+        INTCNTL_IRQ_POLARITY1_MASK,
+        INTCNTL_IRQ_POLARITY_RESET,
+    },
+    {
+        INTCNTL_IRQ_INDEX_ADDR,
+        REG_PROP_RO,
+        INTCNTL_IRQ_INDEX_MASK,
+        INTCNTL_IRQ_INDEX_RESET,
+    }
+};
+#define REG_INTCNTL_COUNT    (sizeof(bticu_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t uart_reg_list[] =
+{
+    {
+        UART_GENERAL_CONFIG_ADDR,   // reg address
+        REG_PROP_RW,                // Read/Write
+        UART_BAUD_CLK_EN_BIT|UART_PARITY_TYPE_MASK|UART_PARITY_EN_BIT|   // Bits/Location
+        UART_STOP_LEN_BIT|UART_WORD_LEN_MASK,
+        UART_GENERAL_CONFIG_RESET,   // Reset Value
+    },
+    {
+        UART_INT_DIV_LSB_ADDR,
+        REG_PROP_RW,
+        UART_INT_DIV_LSB_MASK,
+        UART_INT_DIV_LSB_RESET,
+    },
+    {
+        UART_INT_DIV_MSB_ADDR,
+        REG_PROP_RW,
+        UART_INT_DIV_MSB_MASK,
+        UART_INT_DIV_MSB_RESET,
+    },
+    {
+        UART_FRACT_DIV_ADDR,
+        REG_PROP_RW,
+        UART_FRACT_DIV_MASK,
+        UART_FRACT_DIV_RESET,
+    },
+    {
+        UART_FLOW_CTRL_ADDR,
+        REG_PROP_RW,
+        UART_RTS_FORCED_BIT | UART_AUTO_RTS_BIT | UART_CTS_EN_BIT,
+        UART_FLOW_CTRL_RESET,
+    },
+    {
+        UART_RX_FIFO_THRESHOLD_ADDR,
+        REG_PROP_RW,
+        UART_RX_FIFO_THR_MASK,
+        UART_RX_FIFO_THRESHOLD_RESET,
+    },
+    {
+        UART_TX_FIFO_THRESHOLD_ADDR,
+        REG_PROP_RW,
+        UART_TX_FIFO_THR_MASK,
+        UART_TX_FIFO_THRESHOLD_RESET,
+    },
+    {
+        UART_RX_TIMEOUT_ADDR,
+        REG_PROP_RW,
+        UART_RX_TIMEOUT_MASK,
+        UART_RX_TIMEOUT_RESET,
+    },
+    {
+        UART_RX_DATA_ADDR,
+        REG_PROP_WO,
+        UART_RX_DATA_MASK,
+        UART_RX_DATA_RESET,
+    },
+    {
+        UART_RX_STATUS_ADDR,
+        REG_PROP_RO,
+        UART_RX_TIMEOUT_BIT|UART_RX_BREAK_BIT|UART_RX_FRAME_ERR_BIT|UART_RX_PARITY_ERR_BIT|
+        UART_RX_FIFO_OVERRUN_BIT|UART_RX_FIFO_FULL_BIT|UART_RX_FIFO_ALMOST_FULL_BIT|UART_RX_FIFO_NOT_EMPTY_BIT,
+        UART_RX_STATUS_RESET, //TODO it's zero however it's read as 0x80.
+    },
+    {
+        UART_RX_MASK_ADDR,
+        REG_PROP_RW,
+        UART_RX_TIMEOUT_MASK_BIT|UART_RX_BREAK_MASK_BIT|UART_RX_FRAME_ERR_MASK_BIT|UART_RX_PARITY_ERR_MASK_BIT|
+        UART_RX_FIFO_OVERRUN_MASK_BIT|UART_RX_FIFO_FULL_MASK_BIT|UART_RX_FIFO_THRESHOLD_MASK_BIT|UART_RX_FIFO_NOT_EMPTY_MASK_BIT,
+        UART_RX_MASK_RESET,
+    },
+    {
+        UART_TX_DATA_ADDR,
+        REG_PROP_WO,       // TODO RW in spec,it's should be write only
+        UART_TX_DATA_MASK,
+        UART_TX_DATA_RESET,
+    },
+    {
+        UART_TX_STATUS_ADDR,
+        REG_PROP_RO,
+        UART_CTS_BIT|UART_TX_SR_EMPTY_BIT|UART_TX_FIFO_EMPTY_BIT|UART_TX_FIO_ALMOST_EMPTY_BIT|
+        UART_TX_FIFO_NOT_FULL_BIT,
+        UART_TX_STATUS_RESET, //TODO it's read as 0x0F.
+    },
+    {
+        UART_TX_MASK_ADDR,
+        REG_PROP_RW,
+        UART_CTS_MASK_BIT|UART_TX_SR_EMPTY_MASK_BIT|UART_TX_FIFO_EMPTY_MASK_BIT|UART_TX_FIO_ALMOST_EMPTY_MASK_BIT|
+        UART_TX_FIFO_NOT_FULL_MASK_BIT,
+        UART_TX_MASK_RESET,
+    }
+};
+#define REG_UART_COUNT    (sizeof(uart_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t counter_reg_list[] =
+{
+    {
+        COUNTER_COUNTER_EXPIRED_FLAG_ADDR,
+        REG_PROP_RO,                 // TODO RW in spec,it's should be RO.
+        COUNTER_EXPIRED_BIT,
+        COUNTER_COUNTER_EXPIRED_FLAG_RESET,
+    },
+    {
+        COUNTER_COUNTER_VALUE_ADDR,  // reg address
+        REG_PROP_RW,         // Read/Write
+        COUNTER_VALUE_MASK,  // Bits/Location
+        COUNTER_COUNTER_VALUE_RESET, // Reset Value
+    },
+    {
+        COUNTER_COUNTER_RELOAD_VALUE_ADDR,
+        REG_PROP_RW,
+        COUNTER_RELOAD_MASK,
+        COUNTER_COUNTER_RELOAD_VALUE_RESET,
+    },
+    {
+        COUNTER_COUNTER_INT_MASK_ADDR,
+        REG_PROP_RW,
+        COUNTER_MASK_BIT,
+        COUNTER_COUNTER_INT_MASK_RESET,
+    }
+};
+#define REG_COUNTER_COUNT    (sizeof(counter_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t btgpio_reg_list[] =
+{
+    {
+        GPIO_GPIO_INTSTATRAW_ADDR,
+        REG_PROP_RO,
+        GPIO_GPIO_INTSTATRAW_MASK,
+        GPIO_GPIO_INTSTATRAW_RST,
+    },
+    {
+        GPIO_GPIO_OUT_ADDR,  // reg address
+        REG_PROP_RW,         // Read/Write
+        GPIO_GPIO_OUT_MASK,  // Bits/Location
+        GPIO_GPIO_OUT_RESET, // Reset Value
+    },
+    {
+        GPIO_GPIO_IN_ADDR,
+        REG_PROP_RO,         // TO DO maybe SPEC.ERR,it's should be read only
+        GPIO_GPIO_IN_MASK,
+        GPIO_GPIO_IN_RESET,
+    },
+    {
+        GPIO_GPIO_DIR_ADDR,
+        REG_PROP_RW,
+        GPIO_GPIO_DIR_MASK,
+        GPIO_GPIO_DIR_RESET,
+    },
+    {
+        GPIO_GPIO_INTMODE_ADDR,
+        REG_PROP_RW,
+        GPIO_GPIO_INTMODE_MASK,
+        GPIO_GPIO_INTMODE_RST,
+    },
+    {
+        GPIO_GPIO_INTPOL_ADDR,
+        REG_PROP_RW,
+        GPIO_GPIO_INTPOL_MASK,
+        GPIO_GPIO_INTPOL_RST,
+    },
+    {
+        GPIO_GPIO_INTEN_ADDR,
+        REG_PROP_RW,
+        GPIO_GPIO_INTEN_MASK,
+        GPIO_GPIO_INTEN_RESET,
+    },
+    {
+        GPIO_GPIO_INTSTATMASKED_ADDR,
+        REG_PROP_RO,
+        GPIO_GPIO_INTSTATMASKED_MASK,
+        GPIO_GPIO_INTSTATMASKED_RESET,
+    },
+    {
+        GPIO_GPIO_INTACK_ADDR,
+        REG_PROP_RW,
+        GPIO_GPIO_INTACK_MASK,
+        GPIO_GPIO_INTACK_RST,
+    }
+};
+#define REG_GPIO_COUNT    (sizeof(btgpio_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t spi_reg_list[] =
+{
+    {
+        SPI_SPI_CONFIG_ADDR,  // reg address
+        REG_PROP_RW,         // Read/Write
+        SPI_SPI_ENABLE_BIT,  // Bits/Location
+        SPI_SPI_CONFIG_RESET, // Reset Value
+    },
+    {
+        SPI_SPI_CLK_DIV_ADDR,
+        REG_PROP_RW,
+        SPI_CLK_DIV_MASK,
+        SPI_SPI_CLK_DIV_RESET,
+    },
+    {
+        SPI_SPI_TX_DATA_ADDR,
+        REG_PROP_WO,
+        SPI_TX_DATA_MASK,
+        SPI_SPI_TX_DATA_RESET,
+    },
+    {
+        SPI_SPI_RX_DATA_ADDR,
+        REG_PROP_RO,
+        SPI_RX_DATA_MASK,
+        SPI_SPI_RX_DATA_RESET,
+    },
+    {
+        SPI_SPI_STATUS_ADDR,
+        REG_PROP_RO,
+        SPI_RX_FIFO_OVERRUN_BIT|SPI_RX_FIFO_HALF_FULL_BIT|SPI_RX_FIFO_NOT_EMPTY_BIT|
+        SPI_TX_FIFO_EMPTY_BIT|SPI_TX_FIFO_HALF_EMPTY_BIT|SPI_TX_FIFO_NOT_FULL_BIT,
+        SPI_SPI_STATUS_RESET,
+    },
+    {
+        SPI_SPI_MASK_ADDR,
+        REG_PROP_RW,
+        SPI_RX_FIFO_OVERRUN_MASK_BIT|SPI_RX_FIFO_HALF_FULL_MASK_BIT|SPI_RX_FIFO_NOT_EMPTY_MASK_BIT|
+        SPI_TX_FIFO_EMPTY_MASK_BIT|SPI_TX_FIFO_HALF_EMPTY_MASK_BIT|SPI_TX_FIFO_NOT_FULL_MASK_BIT,
+        SPI_SPI_MASK_RESET,
+    }
+}; // TO DO maybe Spec.errors about SPI register in R/W property,
+#define REG_SPI_COUNT    (sizeof(spi_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t dmac_common_reg_reg_list[] =
+{
+    {
+        DMAC_FFSR_ADDR,
+        REG_PROP_RO,   // SPEC. err REG_PROP_RW
+        DMAC_FFSR_MASK,
+        DMAC_FFSR_RESET,
+    },
+    {
+        DMAC_ISR_ADDR,
+        REG_PROP_RO,
+        DMAC_ISR_MASK,
+        DMAC_ISR_RESET,
+    },
+    {
+        DMAC_RISR_ADDR,
+        REG_PROP_RO,  // SPEC. err REG_PROP_RW
+        DMAC_RISR_MASK,
+        DMAC_RISR_RESET,
+    },
+    {
+        DMAC_ICLR_ADDR,
+        REG_PROP_RO,
+        DMAC_ICLR_MASK,
+        DMAC_ICLR_RESET,
+    }
+};
+#define REG_DMAC_COMMON_COUNT    (sizeof(dmac_common_reg_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t dmac_channel_reg_reg_list[] =
+{
+    {
+        DMAC_SAR_ADDR,
+        REG_PROP_RW,
+        DMAC_SAR_MASK,
+        DMAC_SAR_RESET,
+    },
+    {
+        DMAC_DAR_ADDR,
+        REG_PROP_RW,
+        DMAC_DAR_MASK,
+        DMAC_DAR_RESET,
+    },
+    {
+        DMAC_CCFGR1_ADDR,
+        REG_PROP_RW,
+        DMAC_CCFGR1_MASK,
+        DMAC_CCFGR1_RESET,
+    },
+    {
+        DMAC_CCFGR2_ADDR,
+        REG_PROP_RW,
+        DMAC_CCFGR2_MASK,
+        DMAC_CCFGR2_RESET,
+    },
+    {
+        DMAC_LLPTR_ADDR,
+        REG_PROP_RW,
+        DMAC_LLPTR_MASK,
+        DMAC_LLPTR_RST,
+   },
+   {
+        DMAC_FFLVLR_ADDR,
+        REG_PROP_RO,  // SPEC. err REG_PROP_RW
+        DMAC_FFLVL_MASK,
+        DMAC_FFLVLR_RESET,
+    },
+    {
+        DMAC_XFRCNTR_ADDR,
+        REG_PROP_RO,  // SPEC. err REG_PROP_RW
+        DMAC_XFRCNT_MASK,
+        DMAC_XFRCNTR_RESET,
+    }
+};
+#define REG_DMAC_CHANNEL_COUNT    (sizeof(dmac_channel_reg_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t xdma_gcs_reg_list[] =
+{
+    {
+        GCS_CHSTS_ADDR,
+        REG_PROP_RO,
+        GCS_CHSTS_MASK,
+        GCS_CHSTS_RESET,
+    },
+    {
+        GCS_CHCTRL_ADDR,
+        REG_PROP_RW,
+        GCS_CHCTRL_MASK,
+        GCS_CHCTRL_RESET,
+    },
+    {
+        GCS_SEOBC_ADDR,
+        REG_PROP_RWC,
+        GCS_SEOBC_RD_MASK,
+        GCS_SEOBC_RESET,
+    },
+    {
+        GCS_SEOF_ADDR,
+        REG_PROP_RWC,
+        GCS_SEOF_RD_MASK,
+        GCS_SEOF_RESET,
+    },
+    {
+        GCS_ERR_ADDR,
+        REG_PROP_RWC,
+        GCS_ERR_MASK,
+        GCS_ERR_RESET,
+    },
+    {
+        GCS_PRIOR0_ADDR,
+        REG_PROP_RW,
+        GCS_PRIOR0_MASK,
+        GCS_PRIOR0_RESET,
+    },
+    {
+        GCS_PRIOR1_ADDR,
+        REG_PROP_RSVD,
+        GCS_PRIOR1_MASK,
+        GCS_PRIOR1_RESET,
+    },
+    {
+        GCS_CFG_ADDR,
+        REG_PROP_RW,
+        GCS_CFG_MASK,
+        GCS_CFG_RESET,
+    },
+    {
+        GCS_STS_ADDR,
+        REG_PROP_RO,
+        GCS_STS_MASK_RD,
+        GCS_STS_RESET,
+    },
+    {
+        GCS_DMBP_ADDR,
+        REG_PROP_RW,
+        GCS_DMBP_MASK,
+        GCS_DMBP_RESET,
+    },
+    {
+        GCS_SAMBP_ADDR,
+        REG_PROP_RW,
+        GCS_SAMBP_MASK,
+        GCS_SAMBP_RESET,
+    },
+    {
+        GCS_DAMBP_ADDR,
+        REG_PROP_RW,
+        GCS_DAMBP_MASK,
+        GCS_DAMBP_RESET,
+    },
+    {
+        GCS_DMBA_ADDR,
+        REG_PROP_RW,
+        GCS_DMBA_MASK,
+        GCS_DMBA_RESET,
+    },
+    {
+        GCS_GCS_DMC_ADDR,
+        REG_PROP_RW,
+        GCS_GCS_DMC_MASK,
+        GCS_GCS_DMC_RESET,
+    },
+    {
+        GCS_DPRC_ADDR,
+        REG_PROP_RO,
+        GCS_DPRC_RO_MASK,
+        GCS_DPRC_RESET,
+    }
+};
+#define REG_XDMA_GCS_COUNT    (sizeof(xdma_gcs_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t xdma_dtc_reg_list[] =
+{
+    {
+        DTC_CTRL_ADDR(0),
+        REG_PROP_RW,
+        DTC_CTRL_MASK,
+        DTC_CTRL_RESET,
+    },
+    {
+        DTC_SSA_ADDR(0),
+        REG_PROP_RW,
+        DTC_SSA_MASK,
+        DTC_SSA_RESET,
+    },
+    {
+        DTC_DSA_ADDR(0),
+        REG_PROP_RW,
+        DTC_DSA_MASK,
+        DTC_DSA_RESET,
+    },
+    {
+        DTC_CBEN_ADDR(0),
+        REG_PROP_RW,
+        DTC_CBEN_MASK,
+        DTC_CBEN_RESET,
+    },
+    {
+        DTC_EPM_ADDR(0),
+        REG_PROP_RW,
+        DTC_EPM_MASK,
+        DTC_EPM_RESET,
+    },
+    {
+        DTC_CFG_ADDR(0),
+        REG_PROP_RW,
+        DTC_CFG_MASK,
+        DTC_CFG_RESET,
+    },
+    {
+        DTC_FCN_ADDR(0),
+        REG_PROP_RW,
+        DTC_FCN_MASK,
+        DTC_FCN_RESET,
+    },
+    {
+        DTC_BPM_ADDR(0),
+        REG_PROP_RW,
+        DTC_BPM_MASK,
+        DTC_BPM_RESET,
+    },
+    {
+        DTC_SCPM_ADDR(0),
+        REG_PROP_RW,
+        DTC_SCPM_MASK,
+        DTC_SCPM_RESET,
+    },
+    {
+        DTC_DCPM_ADDR(0),
+        REG_PROP_RW,
+        DTC_DCPM_MASK,
+        DTC_DCPM_RESET,
+    },
+    {
+        DTC_SCA_ADDR(0),
+        REG_PROP_RO,
+        DTC_SCA_MASK,
+        DTC_SCA_RESET,
+    },
+    {
+        DTC_DCA_ADDR(0),
+        REG_PROP_RO,
+        DTC_DCA_MASK,
+        DTC_DCA_RESET,
+    },
+    {
+        DTC_CEC_ADDR(0),
+        REG_PROP_RO,
+        DTC_CEC_MASK,
+        DTC_CEC_RESET,
+    },
+    {
+        DTC_CCC_ADDR(0),
+        REG_PROP_RO,
+        DTC_CCC_MASK,
+        DTC_CCC_RESET,
+    },
+    {
+        DTC_SET_ADDR(0),
+        REG_PROP_WO,
+        DTC_SET_MASK,
+        DTC_SET_RESET,
+    },
+    {
+        DTC_RST_ADDR(0),
+        REG_PROP_WO,
+        DTC_RST_MASK,
+        DTC_RST_RESET,
+    }
+};
+#define REG_XDMA_DTC_TEST_COUNT    (sizeof(xdma_dtc_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t i2c_reg_list[] =
+{
+    {
+        I2C_DATA_ADDR,
+        REG_PROP_WO,
+        I2C_DATA_MASK,
+        I2C_DATA_RESET,
+    },
+    {
+        I2C_SLAD0_ADDR,
+        REG_PROP_RW,
+        I2C_SLAD0_MASK,
+        I2C_SLAD0_RESET,
+    },
+    {
+        I2C_SLAD1_ADDR,
+        REG_PROP_RW,
+        I2C_SLAD1_MASK,
+        I2C_SLAD1_RESET,
+    },
+    {
+        I2C_CNTRL_ADDR,
+        REG_PROP_RW,
+        I2C_CNTRL_TST_MOD_BIT|I2C_CNTRL_REP_START_EN_BIT|I2C_CNTRL_REPN_STOP_BIT|I2C_CNTRL_SRST_BIT|
+        I2C_CNTRL_SWE_BIT|I2C_CNTRL_AD_MOD_BIT|I2C_CNTRL_RDNWR_BIT|I2C_CNTRL_MNS_BIT,
+        I2C_CNTRL_RESET,
+    },
+    {
+        I2C_DAT_CNT_ADDR,
+        REG_PROP_RW,
+        I2C_DAT_CNT_MASK,
+        I2C_DAT_CNT_RESET,
+    },
+    {
+        I2C_SE_AD0_ADDR,
+        REG_PROP_RW,
+        I2C_SE_AD0_MASK,
+        I2C_SE_AD0_RESET,
+    },
+    {
+        I2C_SE_AD1_ADDR,
+        REG_PROP_RW,
+        I2C_SE_AD1_MASK,
+        I2C_SE_AD1_RST,
+    },
+    {
+        I2C_PSCR0_ADDR,
+        REG_PROP_RW,
+        I2C_PSCR0_MASK,
+        I2C_PSCR0_RESET,
+    },
+    {
+        I2C_PSCR1_ADDR,
+        REG_PROP_RW,
+        I2C_PSCR1_WIDTH,
+        I2C_PSCR1_RESET,
+    },
+    {
+        I2C_IMR_ADDR,
+        REG_PROP_RW,
+        I2C_IMR_I2CBRKIRQEN_BIT|I2C_IMR_STXIRQEN_BIT|I2C_IMR_M2SIRQEN_BIT|I2C_IMR_RXORIRQEN_BIT|
+        I2C_IMR_RXFFULLEN_BIT|I2C_IMR_TXMPTYEN_BIT|I2C_IMR_RXFNOTEMPTYEN_BIT|I2C_IMR_TXFNOTFULLEN_BIT,
+        I2C_IMR_RESET,
+    },
+    {
+        I2C_RIS_ADDR,
+        REG_PROP_RO,
+        I2C_RIS_I2CBRKIRQ_BIT|I2C_RIS_STXIRQ_BIT|I2C_RIS_M2SIRQ_BIT|I2C_RIS_RXORIRQ_BIT|
+        I2C_RIS_RXFFULL_BIT|I2C_RIS_TXMPTY_BIT|I2C_RIS_RXFNOTEMPTY_BIT|I2C_RIS_TXFNOTFULL_BIT,
+        I2C_RIS_RESET,
+    },
+    {
+        I2C_CIS_ADDR,
+        REG_PROP_RW, //TODO REG_PROP_RO
+        I2C_CIS_I2CBRKIRQEN_BIT|I2C_CIS_STXIRQEN_BIT|I2C_CIS_M2SIRQEN_BIT|I2C_CIS_RXORIRQEN_BIT|
+        I2C_CIS_RXFFULLEN_BIT|I2C_CIS_TXMPTYEN_BIT|I2C_CIS_RXFNOTEMPTYEN_BIT|I2C_CIS_TXFNOTFULLEN_BIT,
+        I2C_CIS_RESET,
+    },
+    {
+        I2C_CSR_ADDR,
+        REG_PROP_RW, //TODO REG_PROP_RO
+        I2C_CSR_ACTMAST_BIT|I2C_CSR_BUSBUSY_BIT|I2C_CSR_DEVBUSY_BIT,
+        I2C_CSR_RESET,
+    },
+    {
+        I2C_TXCNT_ADDR,
+        REG_PROP_RO,
+        I2C_TXCNT_MASK,
+        I2C_TXCNT_RESET,
+    },
+    {
+        I2C_RXCNT_ADDR,
+        REG_PROP_RO,
+        I2C_RXCNT_MASK,
+        I2C_RXCNT_RESET,
+    },
+    {
+        I2C_TXFLUSH_ADDR,
+        REG_PROP_WC,
+        I2C_TXFLUSH_MASK,
+        I2C_TXFLUSH_RESET,
+    },
+    {
+        I2C_INTCLR_ADDR,
+        REG_PROP_WC,
+        I2C_INTCLR_BRKINTCLR_BIT|I2C_INTCLR_STXIRQCLR_BIT|I2C_INTCLR_M2SIRQCLR_BIT|
+        I2C_INTCLR_RXORIRQCLR_BIT|I2C_INTCLR_STXWCLR_BIT,
+        I2C_INTCLR_RESET,
+    },
+    {
+        I2C_TESTIN_ADDR,
+        REG_PROP_RO,
+        I2C_TESTIN_SDAIN_BIT|I2C_TESTIN_SCLIN_BIT,
+        I2C_TESTIN_RESET,
+    },
+    {
+        I2C_TESTOUT1_ADDR,
+        REG_PROP_RW,
+        I2C_TESTOUT1_MASK,
+        I2C_TESTOUT1_RESET,
+    },
+    {
+        I2C_TESTOUT2_ADDR,
+        REG_PROP_RW,
+        I2C_TESTOUT2_SCLOEN_BIT|I2C_TESTOUT2_SCLOUT_BIT|I2C_TESTOUT2_SDAOEN_BIT|I2C_TESTOUT2_SDAOUT_BIT,
+        I2C_TESTOUT2_RESET,
+    },
+    {
+        I2C_I2CDEBPARAM_ADDR,
+        REG_PROP_RW,
+        I2C_I2CDEBPARAM_MASK,
+        I2C_I2CDEBPARAM_RESET,
+    },
+    {
+        I2C_HOLDPARAM_ADDR,
+        REG_PROP_RW,
+        I2C_HOLDPARAM_I2CHOLDPARAM_MASK|I2C_HOLDPARAM_SCLOUT_MASK,
+        I2C_HOLDPARAM_RESET,
+    }
+};
+#define REG_I2C_COUNT    (sizeof(i2c_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t pmu_reg_list[] =
+{
+    {
+        PMU_PLLCFG0_ADDR,  // reg address
+        REG_PROP_RW,       // Read/Write
+        PMU_PLLCFG0_MASK,  // Bits/Location
+        PMU_PLLCFG0_RESET, // Reset Value
+    },
+    {
+        PMU_PLLCFG1_ADDR,
+        REG_PROP_RW,
+        PMU_PLLCFG1_MASK,
+        PMU_PLLCFG1_RESET,
+    },
+#if (BLUEBUD_RTL_VER >= BLUEBUD_RTL_1_1_1)
+    {
+        PMU_CLK_DIVS,
+        REG_PROP_RW,
+        PMU_CLKDIV_MASK,
+        PMU_CLKDIV_RESET,
+    },
+#else
+    {
+        PMU_CXCLK_DIV_ADDR,
+        REG_PROP_RW,
+        PMU_CXCLK_DIV_MASK,
+        PMU_CXCLK_DIV_RESET,
+    },
+    {
+        PMU_XHCLK_DIV,
+        REG_PROP_RW,
+        PMU_XHCLK_DIV_MASK,
+        PMU_XHCLK_DIV_RESET,
+    },
+    {
+        PMU_XPCLK_DIV,
+        REG_PROP_RW,
+        PMU_XPCLK_DIV_MASK,
+        PMU_XPCLK_DIV_RESET,
+    },
+#endif // (BLUEBUD_RTL_VER >= BLUEBUD_RTL_1_1_1)
+    {
+        PMU_CXPMOD,
+        REG_PROP_RW,
+        PMU_CXPMOD_MASK,
+        PMU_CXPMOD_RESET,
+    },
+    {
+        PMU_XHPMOD,
+        REG_PROP_RW,
+        PMU_XHPMOD_MASK,
+        PMU_XHPMOD_RESET,
+    },
+    {
+        PMU_PMU_VER,
+        REG_PROP_RO,
+        PMU_PMU_VER_MASK,
+        PMU_PMU_VER_RESET,
+    },
+    {
+        PMU_XAPBMOD,
+        REG_PROP_RW,
+        PMU_XAPBMOD_MASK,
+        PMU_XAPBMOD_RESET,
+    }
+};
+#define REG_PMU_COUNT    (sizeof(pmu_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t sys_icu_reg_list[] =
+{
+    {
+        ISR_LOW_OFFSET_ADDR,
+        REG_PROP_RO,
+        ISR_LOW_MASK,
+        ISR_LOW_RESET,
+    },
+    {
+        ISR_HIGH_OFFSET_ADDR,
+        REG_PROP_RO,
+        ISR_HIGH_MASK,
+        ISR_HIGH_RESET,
+    },
+    {
+        ICR_LOW_OFFSET_ADDR,
+        REG_PROP_WO,
+        ICR_LOW_MASK,
+        ICR_LOW_RESET,
+    },
+    {
+        ICR_HIGH_OFFSET_ADDR,
+        REG_PROP_WO,
+        ICR_HIGH_MASK,
+        ICR_HIGH_RESET,
+    },
+    {
+        IPR_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        IPR_LOW_MASK,
+        IPR_LOW_RESET,
+    },
+    {
+        IPR_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        IPR_HIGH_MASK,
+        IPR_HIGH_RESET,
+    },
+    {
+        IMR0_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR0_LOW_MASK,
+        IMR0_LOW_RESET,
+    },
+    {
+        IMR0_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR0_HIGH_MASK,
+        IMR0_HIGH_RESET,
+    },
+    {
+        IMR1_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR1_LOW_MASK,
+        IMR1_LOW_RESET,
+    },
+    {
+        IMR1_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR1_HIGH_MASK,
+        IMR1_HIGH_RESET,
+    },
+    {
+        IMR2_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR2_LOW_MASK,
+        IMR2_LOW_RESET,
+    },
+    {
+        IMR2_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        IMR2_HIGH_MASK,
+        IMR2_HIGH_RESET,
+    },
+    {
+        VIMR_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        VIMR_LOW_MASK,
+        VIMR_LOW_RESET,
+    },
+    {
+        VIMR_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        VIMR_HIGH_MASK,
+        VIMR_HIGH_RESET,
+    },
+    {
+        SPCCFG_OFFSET_ADDR,
+        REG_PROP_RW,
+        SPCCFG_MASK,
+        SPCCFG_RESET,
+    },
+    {
+        IGR_LOW_OFFSET_ADDR,
+        REG_PROP_WO,
+        IGR_LOW_MASK,
+        IGR_LOW_RESET,
+    },
+    {
+        IGR_HIGH_OFFSET_ADDR,
+        REG_PROP_WO,
+        IGR_HIGH_MASK,
+        IGR_HIGH_RESET,
+    },
+    {
+        NMICFG_OFFSET_ADDR,
+        REG_PROP_RW,
+        NMICFG_MASK,
+        NMICFG_RESET,
+    },
+    {
+        VEC46_OFFSET_ADDR,
+        REG_PROP_RW,
+        VEC46_MASK,
+        VEC46_RESET,
+    },
+    {
+        VEC47_OFFSET_ADDR,
+        REG_PROP_RW,
+        VEC47_MASK,
+        VEC47_RESET,
+    },
+    {
+        VIBASE0_OFFSET_ADDR,
+        REG_PROP_RW,
+        VIBASE0_MASK,
+        VIBASE0_RESET,
+    },
+    {
+        VIBASE1_OFFSET_ADDR,
+        REG_PROP_RW,
+        VIBASE1_MASK,
+        VIBASE1_RESET,
+    },
+    {
+        VIBASE2_OFFSET_ADDR,
+        REG_PROP_RW,
+        VIBASE2_MASK,
+        VIBASE2_RESET,
+    },
+    {
+        VICS_BOOT_LOW_OFFSET_ADDR,
+        REG_PROP_RW,
+        VICS_BOOT_LOW_MASK,
+        VICS_BOOT_LOW_RESET,
+    },
+    {
+        VICS_BOOT_HIGH_OFFSET_ADDR,
+        REG_PROP_RW,
+        VICS_BOOT_HIGH_MASK,
+        VICS_BOOT_HIGH_RESET,
+    },
+    {
+        CXRCVR_OFFSET_ADDR,
+        REG_PROP_RW,
+        CXRCVR_MASK,
+        CXRCVR_RESET,
+    }
+};
+#define REG_APB_ICU_COUNT    (sizeof(sys_icu_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t sys_timer_reg_list[] =
+{
+    {
+        TIMER_CFG_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_CFG_RW_TEST_MASK,
+        TIMER_CFG_RESET,
+    },
+    {
+        TIMER_CFG1_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_CFG1_MASK,//TODO maybe bit0 RES & bit2 CT WO
+        TIMER_CFG1_RESET,
+    },
+    {
+        TIMER_EW_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_EW_MASK,//TODO maybe bit0 R/W1C  bit1 EW WO
+        TIMER_EW_RESET,
+    },
+    {
+        TIMER_SC_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_SC_MASK,
+        TIMER_SC_RESET,
+    },
+    {
+        TIMER_CC_OFFSET_ADDR,
+        REG_PROP_RO,
+        TIMER_CC_MASK,
+        TIMER_CC_RESET,
+    },
+    {
+        TIMER_SPWMC_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_SPWMC_MASK,
+        TIMER_SPWMC_RESET,
+    },
+    {
+        TIMER_CFG0_OFFSET_ADDR,
+        REG_PROP_RW,
+        TIMER_CFG0_MASK,
+        TIMER_CFG0_RESET,
+    }
+};
+#define REG_APB_TIMER_COUNT    (sizeof(sys_timer_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t sys_gpio_reg_list[] =
+{
+   {
+        GPIO_GP_OUT_ADDR,
+        REG_PROP_RW,
+        GPIO_GP_OUT_MASK,
+        GPIO_GP_OUT_RESET,
+   },
+   {
+        GPIO_GP_IN_ADDR,
+        REG_PROP_RO,
+        GPIO_GP_IN_MASK,
+        GPIO_GP_IN_RESET,
+   },
+   {
+        GPIO_GP_DIR_ADDR,
+        REG_PROP_RW,
+        GPIO_GP_DIR_MASK,
+        GPIO_GP_DIR_RESET,
+   }
+};
+#define REG_APB_GPIO_COUNT    (sizeof(sys_gpio_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t tdm_mux_reg_list[] =
+{
+    {
+        TDMMUX_I2SCFG_ADDR,
+        REG_PROP_RW,
+        TDMMUX_I2SCFG_MASK,
+        TDMMUX_I2SCFG_RESET,
+    },
+    {
+        TDMMUX_TDMCFG_ADDR,
+        REG_PROP_RW,
+        TDMMUX_TDMCFG_MASK,
+        TDMMUX_TDMCFG_RESET,
+    },
+    {
+        TDMMUX_I2SEN_ADDR,
+        REG_PROP_RW,
+        TDMMUX_I2SEN_MASK,
+        TDMMUX_I2SEN_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(0),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(1),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(2),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(3),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(4),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_I2SCTL_ADDR(5),
+        REG_PROP_RW,
+        TDMMUX_I2SCTL_MASK,
+        TDMMUX_I2SCTL_RESET,
+    },
+    {
+        TDMMUX_FIFORST_ADDR,
+        REG_PROP_RWC,
+        TDMMUX_FIFORST_MASK,
+        TDMMUX_FIFORST_RESET,
+    },
+    {
+        TDMMUX_TDMIE_ADDR,
+        REG_PROP_RW,
+        TDMMUX_TDMIE_MASK,
+        TDMMUX_TDMIE_RESET,
+    },
+    {
+        TDMMUX_TDMIS_ADDR,
+        REG_PROP_RO,
+        TDMMUX_TDMIS_MASK,
+        TDMMUX_TDMIS_RESET,
+    },
+    {
+        TDMMUX_TDMIC_ADDR,
+        REG_PROP_RWC,
+        TDMMUX_TDMIC_MASK,
+        TDMMUX_TDMIC_RESET,
+    },
+    {
+        TDMMUX_TDMIM_ADDR,
+        REG_PROP_RW,
+        TDMMUX_TDMIM_MASK,
+        TDMMUX_TDMIM_RESET,
+    },
+    {
+        TDMMUX_TDMBYP_ADDR,
+        REG_PROP_RW,
+        TDMMUX_TDMBYP_MASK,
+        TDMMUX_TDMBYP_RESET,
+    },
+    {
+        TDMMUX_I2SACT_ADDR,
+        REG_PROP_RO,
+        TDMMUX_I2SACT_MASK,
+        TDMMUX_I2SACT_RESET,
+    },
+    {
+        TDMMUX_TDMSCR_ADDR(0),
+        REG_PROP_RW,
+        TDMMUX_TDMSCR_MASK,
+        TDMMUX_TDMSCR_RESET,
+    },
+    {
+        TDMMUX_TDMSCR_ADDR(1),
+        REG_PROP_RW,
+        TDMMUX_TDMSCR_MASK,
+        TDMMUX_TDMSCR_RESET,
+    },
+    {
+        TDMMUX_TDMSCR_ADDR(2),
+        REG_PROP_RW,
+        TDMMUX_TDMSCR_MASK,
+        TDMMUX_TDMSCR_RESET,
+    },
+    {
+        TDMMUX_TDMSCR_ADDR(3),
+        REG_PROP_RW,
+        TDMMUX_TDMSCR_MASK,
+        TDMMUX_TDMSCR_RESET,
+    }
+};
+#define REG_TDM_MUX_COUNT    (sizeof(tdm_mux_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t sbox_reg_list[] =
+{
+    {
+        SBOX_TDM_RX_CNT_ADDR,
+        REG_PROP_RO,
+        SBOX_TDM_RX_CNT_MASK,
+        SBOX_TDM_RX_CNT_RESET,
+    },
+    {
+        SBOX_TDM_TX_CNT_ADDR,
+        REG_PROP_RO,
+        SBOX_TDM_TX_CNT_MASK,
+        SBOX_TDM_TX_CNT_RESET,
+    },
+    {
+        SBOX_CORE_CNT_ADDR,
+        REG_PROP_RO,
+        SBOX_CORE_CNT_MASK,
+        SBOX_CORE_CNT_RESET,
+    },
+    {
+        SBOX_PICO_CNT_ADDR,
+        REG_PROP_RO,
+        SBOX_PICO_CNT_MASK,
+        SBOX_PICO_CNT_RESET,
+    },
+    {
+        SBOX_FINE_CNT_ADDR,
+        REG_PROP_RO,
+        SBOX_FINE_CNT_MASK,
+        SBOX_FINE_CNT_RESET,
+    },
+    {
+        SBOX_TDMRX_TRG_VAL_ADDR,
+        REG_PROP_RW,
+        SBOX_TDMRX_TRG_VAL_MASK,
+        SBOX_TDMRX_TRG_VAL_RESET,
+    },
+    {
+        SBOX_TDMTX_TRG_VAL_ADDR,
+        REG_PROP_RW,
+        SBOX_TDMTX_TRG_VAL_MASK,
+        SBOX_TDMTX_TRG_VAL_RESET,
+    },
+    {
+        SBOX_CORE_TRG_VAL_ADDR,
+        REG_PROP_RW,
+        SBOX_CORE_TRG_VAL_MASK,
+        SBOX_CORE_TRG_VAL_RESET,
+    },
+    {
+        SBOX_PICO_TRG_VAL_ADDR,
+        REG_PROP_RW,
+        SBOX_PICO_TRG_VAL_MASK,
+        SBOX_PICO_TRG_VAL_RESET,
+    },
+    {
+        SBOX_FINE_TRG_VAL_ADDR,
+        REG_PROP_RW,
+        SBOX_FINE_TRG_VAL_MASK,
+        SBOX_FINE_TRG_VAL_RESET,
+    },
+    {
+        SBOX_CTRL_ADDR,
+        REG_PROP_RW,
+        SBOX_CTRL_RW_MASK,
+        SBOX_CTRL_RESET,
+    },
+    {
+        SBOX_STATUS_ADDR,
+        REG_PROP_RO,
+        SBOX_STATUS_MASK,
+        SBOX_STATUS_RESET,
+    }
+};
+#define REG_SBOX_COUNT    (sizeof(sbox_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t mailbox_reg_list[] =
+{
+    {
+        MAILBOX_M2D_DATA_ADDR,
+        REG_PROP_WO,
+        MAILBOX_M2D_DATA_MASK,
+        MAILBOX_M2D_DATA_RESET,
+    },
+    {
+        MAILBOX_D2M_DATA_ADDR,
+        REG_PROP_RO,
+        MAILBOX_D2M_DATA_MASK,
+        MAILBOX_D2M_DATA_RESET,
+    },
+    {
+        MAILBOX_STATUS_ADDR,
+        REG_PROP_RO,
+        MAILBOX_STATUS_MASK,
+        MAILBOX_STATUS_RESET,
+    },
+    {
+        MAILBOX_M2D_ERROR_ADDR,
+        REG_PROP_RSVD,
+        MAILBOX_M2D_ERROR_MASK,
+        MAILBOX_M2D_ERROR_RESET,
+    },
+    {
+        MAILBOX_M2D_IT_ADDR,
+        REG_PROP_RO,
+        MAILBOX_M2D_IT_MASK,
+        MAILBOX_M2D_IT_RESET,
+    },
+    {
+        MAILBOX_M2D_IS_ADDR,
+        REG_PROP_RO,
+        MAILBOX_M2D_IS_MASK,
+        MAILBOX_M2D_IS_RESET,
+    },
+    {
+        MAILBOX_M2D_IE_ADDR,
+        REG_PROP_RO,
+        MAILBOX_M2D_IE_MASK,
+        MAILBOX_M2D_IE_RESET,
+    },
+    {
+        MAILBOX_D2M_IT_ADDR,
+        REG_PROP_RW,
+        MAILBOX_D2M_IT_MASK,
+        MAILBOX_D2M_IT_RESET,
+    },
+    {
+        MAILBOX_D2M_IS_ADDR,
+        REG_PROP_RW,
+        MAILBOX_D2M_IS_MASK,
+        MAILBOX_D2M_IS_RESET,
+    },
+    {
+        MAILBOX_D2M_IE_ADDR,
+        REG_PROP_RW,
+        MAILBOX_D2M_IE_MASK,
+        MAILBOX_D2M_IE_RESET,
+    }
+};
+#define REG_MAILBOX_COUNT    (sizeof(mailbox_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t efuse_reg_list[] =
+{
+    {
+        EFUSE_GCR_ADDR,
+        REG_PROP_RW,
+        EFUSE_GCR_RW_MASK,
+        EFUSE_GCR_RESET,
+    },
+    {
+        EFUSE_READ_CFG_ADDR,
+        REG_PROP_RW,
+        EFUSE_READ_CFG_RW_MASK,
+        EFUSE_READ_CFG_RESET,
+    },
+    {
+        EFUSE_PGM_DATA_ADDR,
+        REG_PROP_WO,
+        EFUSE_PGM_DATA_MASK,
+        EFUSE_PGM_DATA_RESET,
+    },
+    {
+        EFUSE_RD_DATA_ADDR,
+        REG_PROP_RO,
+        EFUSE_RD_DATA_MASK,
+        EFUSE_RD_DATA_RESET,
+    },
+    {
+        EFUSE_IER_ADDR,
+        REG_PROP_RW,
+        EFUSE_IER_RW_MASK,
+        EFUSE_IER_RESET,
+    },
+    {
+        EFUSE_ISR_ADDR,
+        REG_PROP_RO,
+        EFUSE_ISR_MASK,
+        EFUSE_ISR_RESET,
+    },
+    {
+        EFUSE_ICR_ADDR,
+        REG_PROP_WO,
+        EFUSE_ICR_MASK,
+        EFUSE_ICR_RESET,
+    },
+    {
+        EFUSE_MR_CFG_ADDR,
+        REG_PROP_RW,
+        EFUSE_MR_CFG_RW_MASK,
+        EFUSE_MR_CFG_RESET,
+    },
+    {
+        EFUSE_PGM_PRE_ADDR,
+        REG_PROP_RW,
+        EFUSE_PGM_PRE_RW_MASK,
+        EFUSE_PGM_PRE_RESET,
+    },
+    {
+        EFUSE_PGM_STB_H_ADDR,
+        REG_PROP_RW,
+        EFUSE_PGM_STB_H_RW_MASK,
+        EFUSE_PGM_STB_H_RESET,
+    },
+    {
+        EFUSE_PGM_STB_L_ADDR,
+        REG_PROP_RW,
+        EFUSE_PGM_STB_L_RW_MASK,
+        EFUSE_PGM_STB_L_RESET,
+    },
+    {
+        EFUSE_PGM_STB_TO_ADDR,
+        REG_PROP_RW,
+        EFUSE_PGM_STB_TO_RW_MASK,
+        EFUSE_PGM_STB_TO_RESET,
+    },
+    {
+        EFUSE_PGM_END_ADDR,
+        REG_PROP_RW,
+        EFUSE_PGM_END_RW_MASK,
+        EFUSE_PGM_END_RESET,
+    },
+    {
+        EFUSE_RD_PRE_ADDR,
+        REG_PROP_RW,
+        EFUSE_RD_PRE_RW_MASK,
+        EFUSE_RD_PRE_RESET,
+    },
+    {
+        EFUSE_RD_STB_H_ADDR,
+        REG_PROP_RW,
+        EFUSE_RD_STB_H_RW_MASK,
+        EFUSE_RD_STB_H_RESET,
+    },
+    {
+        EFUSE_RD_STB_L_ADDR,
+        REG_PROP_RW,
+        EFUSE_RD_STB_L_RW_MASK,
+        EFUSE_RD_STB_L_RESET,
+    },
+    {
+        EFUSE_RD_STB_TO_ADDR,
+        REG_PROP_RW,
+        EFUSE_RD_STB_TO_RW_MASK,
+        EFUSE_RD_STB_TO_RESET,
+    },
+    {
+        EFUSE_RD_END_ADDR,
+        REG_PROP_RW,
+        EFUSE_RD_END_RW_MASK,
+        EFUSE_RD_END_RESET,
+    }
+};
+#define REG_EFUSE_COUNT    (sizeof(efuse_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t pta_reg_list[] = 
+{
+    {
+        COEX_PTA_WLAN_CHANNEL_STORAGE_ADDR,
+        REG_PROP_RW,
+        COEX_PTA_WLAN_CHANNEL_STORAGE_MASK,
+        COEX_PTA_WLAN_CHANNEL_STORAGE_RESET,
+    },
+    {
+        COEX_PTA_WLAN_COEX_POL_ADDR,
+        REG_PROP_RW,
+        COEX_PTA_WLAN_COEX_POL_MASK,
+        COEX_PTA_WLAN_COEX_POL_RESET,
+    },
+};
+#define REG_PTA_COUNT    (sizeof(pta_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t scpm_sclk_reg_list[REG_SCPM_SCLK_COUNT] =
+{
+    {
+        SCPM_CLKCTL0_ADDR,
+        REG_PROP_RW,
+        SCPM_CLKCTL0_MASK,
+        SCPM_CLKCTL0_RESET,
+    },
+    {
+        SCPM_CLKCTL1_ADDR,
+        REG_PROP_RW,
+        SCPM_CLKCTL1_MASK,
+        SCPM_CLKCTL1_RESET,
+    },
+    {
+        SCPM_CLKCTL2_ADDR,
+        REG_PROP_RW,
+        SCPM_CLKCTL2_MASK,
+        SCPM_CLKCTL2_RESET,
+    },
+    {
+        SCPM_CLKDIS_ADDR,
+        REG_PROP_RW,
+        SCPM_CLKDIS_MASK,
+        SCPM_CLKDISRESET,
+    }
+};
+
+ambt53_reg_t scpm_ahb_fab_reg_list[REG_SCPM_AHB_FAB_COUNT] = 
+{
+    {
+        SCPM_AHB_FAB_SRAMB0A_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB0A_MASK,
+        SCPM_AHB_FAB_SRAMB0A_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB0B_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB0B_MASK,
+        SCPM_AHB_FAB_SRAMB0B_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB1A_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB1A_MASK,
+        SCPM_AHB_FAB_SRAMB1A_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB1B_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB1B_MASK,
+        SCPM_AHB_FAB_SRAMB1B_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB2A_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB2A_MASK,
+        SCPM_AHB_FAB_SRAMB2A_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB2B_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB2B_MASK,
+        SCPM_AHB_FAB_SRAMB2B_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB3A_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB3A_MASK,
+        SCPM_AHB_FAB_SRAMB3A_RESET,
+    },
+    {
+        SCPM_AHB_FAB_SRAMB3B_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_SRAMB3B_MASK,
+        SCPM_AHB_FAB_SRAMB3B_RESET,
+    },
+    {
+        SCPM_AHB_FAB_ARBFPACTL_ADDR,
+        REG_PROP_RW,
+        SCPM_AHB_FAB_ARBFPACTL_MASK,
+        SCPM_AHB_FAB_ARBFPACTL_RESET,
+    }
+};
+
+ambt53_reg_t scpm_ana_ctl_reg_list[REG_SCPM_ANA_CTL_COUNT] = 
+{
+    {
+        SCPM_ANA_CTL_HFRC2CTL_ADDR,
+        REG_PROP_RW,
+        SCPM_ANA_CTL_HFRC2CTL_MASK,
+        SCPM_ANA_CTL_HFRC2CTL_RESET,
+    },
+    {
+        SCPM_ANA_CTL_STATUS_ADDR,
+        REG_PROP_RO,
+        SCPM_ANA_CTL_STATUS_MASK,
+        SCPM_ANA_CTL_STATUS_RESET,
+    }
+};
+
+ambt53_reg_t scpm_btdm_ctl_reg_list[REG_SCPM_BTDM_CTL_COUNT] = 
+{
+    {
+        SCPM_BTDM_BTDMCTL0_ADDR,
+        REG_PROP_RW,
+        SCPM_BTDM_BTDMCTL0_MASK,
+        SCPM_BTDM_BTDMCTL0_RESET,
+    },
+    {
+        SCPM_BTDM_BTDMCTL1_ADDR,
+        REG_PROP_RW,
+        SCPM_BTDM_BTDMCTL1_MASK,
+        SCPM_BTDM_BTDMCTL1_RESET,
+    },
+    {
+        SCPM_BTDM_BTDMSTATUS_ADDR,
+        REG_PROP_RO,
+        SCPM_BTDM_BTDMSTATUS_MASK,
+        SCPM_BTDM_BTDMSTATUS_RESET,
+    }
+};
+
+ambt53_reg_t scpm_clk_gate_reg_list[REG_SCPM_CG_COUNT] = 
+{
+    {
+        SCPM_CG_AHBFABCG_ADDR,
+        REG_PROP_RW,
+        SCPM_CG_AHBFABCG_MASK,
+        SCPM_CG_AHBFABCG_RESET,
+    },
+    {
+        SCPM_CG_APBCG_ADDR,
+        REG_PROP_RW,
+        SCPM_CG_APBCG_MASK,
+        SCPM_CG_APBCG_RESET,
+    },
+    {
+        SCPM_CG_TDMCG_ADDR,
+        REG_PROP_RW,
+        SCPM_CG_TDMCG_MASK,
+        SCPM_CG_TDMCG_RESET,
+    }
+};
+
+ambt53_reg_t scpm_coex_reg_list[REG_SCPM_COEX_COUNT] =
+{
+    {
+    SCPM_COEX_WCICFG_ADDR,
+    REG_PROP_RW,
+    SCPM_COEX_WCICFG_MASK,
+    SCPM_COEX_WCICFG_RESET,
+    }
+};
+
+ambt53_reg_t scpm_dsp_ctl_reg_list[REG_SCPM_DSP_CTL_COUNT] = 
+{
+    {
+        SCPM_DSP_DSPBOOTSTRAP_ADDR,
+        REG_PROP_RO,
+        SCPM_DSP_DSPBOOTSTRAP_MASK,
+        SCPM_DSP_SCPMDSPBOOTSTRAP_RESET,
+    },
+    {
+        SCPM_DSP_DSPEVECTOR_ADDR,
+        REG_PROP_RO,
+        SCPM_DSP_DSPEVECTOR_MASK,
+        SCPM_DSP_DSPEVECTOR_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPSTAT_ADDR,
+        REG_PROP_RO,
+        SCPM_DSP_SCPMDSPSTAT_MASK,
+        SCPM_DSP_SCPMDSPSTAT_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPTEST_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPTEST_MASK,
+        SCPM_DSP_SCPMDSPTEST_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPCXGPOUT_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPCXGPOUT_MASK,
+        SCPM_DSP_SCPMDSPCXGPOUT_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPCTL1_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPCTL1_MASK,
+        SCPM_DSP_SCPMDSPCTL1_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPCTL2_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPCTL2_MASK,
+        SCPM_DSP_SCPMDSPCTL2_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPGPINSYS_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPGPINSYS_MASK,
+        SCPM_DSP_SCPMDSPGPINSYS_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPGPIN_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPGPIN_MASK,
+        SCPM_DSP_SCPMDSPGPIN_RESET,
+    },
+    {
+        SCPM_DSP_SCPMDSPCXGPDIR_ADDR,
+        REG_PROP_RW,
+        SCPM_DSP_SCPMDSPCXGPDIR_MASK,
+        SCPM_DSP_SCPMDSPCXGPDIR_RESET,
+    }
+};
+
+ambt53_reg_t scpm_irq_ctrl_reg_list[REG_SCPM_IRQ_CTRL_COUNT] = 
+{
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT0EN_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPT0EN_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT0EN_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT0STAT_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_MCUINTRPT0STAT_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT0STAT_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT0CLR_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_MCUINTRPT0CLR_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT0CLR_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT0SET_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPT0SET_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT0SET_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT1EN_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPT1EN_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT1EN_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT1STAT_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_MCUINTRPT1STAT_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT1STAT_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT1CLR_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_MCUINTRPT1CLR_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT1CLR_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPT1SET_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPT1SET_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPT1SET_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT0EN_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPT0EN_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT0EN_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT0STAT_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_DSPINTRPT0STAT_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT0STAT_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT0CLR_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_DSPINTRPT0CLR_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT0CLR_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT0SET_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPT0SET_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT0SET_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT1EN_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPT1EN_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT1EN_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT1STAT_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_DSPINTRPT1STAT_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT1STAT_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT1CLR_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_DSPINTRPT1CLR_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT1CLR_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPT1SET_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPT1SET_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPT1SET_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPTMASK0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPTMASK0_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPTMASK0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUINTRPTMASK1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUINTRPTMASK1_MASK,
+        SCPM_IRQ_CTRL_MCUINTRPTMASK1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPTMASK0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPTMASK0_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPTMASK0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPINTRPTMASK1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPINTRPTMASK1_MASK,
+        SCPM_IRQ_CTRL_DSPINTRPTMASK1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN0_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT0_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT0_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR0_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR0_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET0_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN1_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTEN1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT1_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT1_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSTAT1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR1_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR1_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTCLR1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET1_MASK,
+        SCPM_IRQ_CTRL_MCUEXTLVLINTSET1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN0_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT0_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT0_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR0_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR0_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET0_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN1_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTEN1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT1_ADDR,
+        REG_PROP_RO,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT1_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSTAT1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR1_ADDR,
+        REG_PROP_WO,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR1_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTCLR1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET1_MASK,
+        SCPM_IRQ_CTRL_DSPEXTLVLINTSET1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL0_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL0_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL0_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL1_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL1_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL1_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL2_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL2_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL2_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL3_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL3_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL3_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL4_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL4_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL4_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL5_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL5_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL5_RESET,
+    },
+    {
+        SCPM_IRQ_CTRL_INTRPTMODESEL6_ADDR,
+        REG_PROP_RW,
+        SCPM_IRQ_CTRL_INTRPTMODESEL6_MASK,
+        SCPM_IRQ_CTRL_INTRPTMODESEL6_RESET,
+    }
+};
+
+ambt53_reg_t scpm_mem_ctl_reg_list[REG_SCPM_MEM_CTL_COUNT] = 
+{
+    {
+        SCPM_MEMC_SSRAMTCTL01_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_SSRAMTCTL01_MASK,
+        SCPM_MEMC_SSRAMTCTL01_RESET,
+    },
+    {
+        SCPM_MEMC_SSRAMTCTL32_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_SSRAMTCTL32_MASK,
+        SCPM_MEMC_SSRAMTCTL32_RESET,
+    },
+    {
+        SCPM_MEMC_IDTCMTCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_IDTCMTCTL_MASK,
+        SCPM_MEMC_IDTCMTCTL_RESET,
+    },
+    {
+        SCPM_MEMC_IDCACHTCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_IDCACHTCTL_MASK,
+        SCPM_MEMC_IDCACHTCTL_RESET,
+    },
+    {
+        SCPM_MEMC_IDTAGTCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_IDTAGTCTL_MASK,
+        SCPM_MEMC_IDTAGTCTL_RESET,
+    },
+    {
+        SCPM_MEMC_BTBEXMTCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_MEMC_BTBEXMTCTL_MASK,
+        SCPM_MEMC_BTBEXMTCTL_RESET,
+    }
+};
+
+ambt53_reg_t scpm_pad_ctl_reg_list[REG_SCPM_PAD_CTL_COUNT] = 
+{
+    {
+        SCPM_PAD_CTL_JTAGPADCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_JTAGPADCTL_MASK,
+        SCPM_PAD_CTL_JTAGPADCTL_RESET,
+    },
+    {
+        SCPM_PAD_CTL_XSPIPADCTL0_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_XSPIPADCTL0_MASK,
+        SCPM_PAD_CTL_XSPIPADCTL0_RESET,
+    },
+    {
+        SCPM_PAD_CTL_XSPIPADCTL1_ADDR, 
+        REG_PROP_RW, 
+        SCPM_PAD_CTL_XSPIPADCTL1_MASK,
+        SCPM_PAD_CTL_XSPIPADCTL1_RESET
+    },
+    {
+        SCPM_PAD_CTL_XSPIPADCTL2_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_XSPIPADCTL2_MASK,
+        SCPM_PAD_CTL_XSPIPADCTL2_RESET,
+    },
+    {
+        SCPM_PAD_CTL_I2SPADCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_I2SPADCTL_MASK,
+        SCPM_PAD_CTL_I2SPADCTL_RESET,
+    },
+    {
+        SCPM_PAD_CTL_I2CPADCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_I2CPADCTL_MASK,
+        SCPM_PAD_CTL_I2CPADCTL_RESET,
+    },
+    {
+        SCPM_PAD_CTL_CLKPADCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_CLKPADCTL_MASK,
+        SCPM_PAD_CTL_CLKPADCTL_RESET,
+    },
+    {
+        SCPM_PAD_CTL_MISCPADCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PAD_CTL_MISCPADCTL_MASK,
+        SCPM_PAD_CTL_MISCPADCTL_RESET,
+    }
+};
+
+ambt53_reg_t scpm_pll_ctl_reg_list[REG_SCPM_PLL_COUNT] = 
+{
+    {
+        SCPM_PLLCTL0_ADDR,
+        REG_PROP_RW,
+        SCPM_PLLCTL0_MASK,
+        SCPM_PLLCTL0_RESET,
+    },
+    {
+        SCPM_PLLDIV0_ADDR,
+        REG_PROP_RW,
+        SCPM_PLLDIV0_MASK,
+        SCPM_PLLDIV0_RESET,
+    },
+    {
+        SCPM_PLLDIV1_ADDR,
+        REG_PROP_RW,
+        SCPM_PLLDIV1_MASK,
+        SCPM_PLLDIV1_RESET,
+    },
+    {
+        SCPM_PLLSTAT_ADDR,
+        REG_PROP_RW,
+        SCPM_PLLSTAT_MASK,
+        SCPM_PLLSTAT_RESET,
+    }
+};
+
+ambt53_reg_t scpm_psu_ctl_reg_list[REG_SCPM_PSU_COUNT] = 
+{
+    {
+        SCPM_PSU_VDDCCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDCCTL_MASK,
+        SCPM_PSU_VDDCCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDSCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDSCTL_MASK,
+        SCPM_PSU_VDDSCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDLCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDLCTL_MASK,
+        SCPM_PSU_VDDLCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDRFCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDRFCTL_MASK,
+        SCPM_PSU_VDDRFCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDRFPALCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDRFPALCTL_MASK,
+        SCPM_PSU_VDDRFPALCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDRFPAHCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDRFPAHCTL_MASK,
+        SCPM_PSU_VDDRFPAHCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDAUDACTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDAUDACTL_MASK,
+        SCPM_PSU_VDDAUDACTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDAUDHPCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDAUDHPCTL_MASK,
+        SCPM_PSU_VDDAUDHPCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDPHYCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDPHYCTL_MASK,
+        SCPM_PSU_VDDPHYCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDRFHCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDRFHCTL_MASK,
+        SCPM_PSU_VDDRFHCTL_RESET,
+    },
+    {
+        SCPM_PSU_VUSBCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VUSBCTL_MASK,
+        SCPM_PSU_VUSBCTL_RESET,
+    },
+    {
+        SCPM_PSU_REFCTRIM_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_REFCTRIM_MASK,
+        SCPM_PSU_REFCTRIM_RESET,
+    },
+    {
+        SCPM_PSU_SIMOCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_SIMOCTL_MASK,
+        SCPM_PSU_SIMOCTL_RESET,
+    },
+    {
+        SCPM_PSU_VDDAONCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_VDDAONCTL_MASK,
+        SCPM_PSU_VDDAONCTL_RESET,
+    },
+    {
+        SCPM_PSU_PSUSTATUS_ADDR,
+        REG_PROP_RO,
+        SCPM_PSU_PSUSTATUS_MASK,
+        SCPM_PSU_PSUSTATUS_RESET,
+    },
+    {
+        SCPM_PSU_PSUTEST_ADDR,
+        REG_PROP_RW,
+        SCPM_PSU_PSUTEST_MASK,
+        SCPM_PSU_PSUTEST_RESET,
+    }
+};
+
+ambt53_reg_t scpm_pwr_ctl_reg_list[REG_SCPM_PWR_CTL_COUNT] = 
+{
+    {
+        SCPM_PWR_CTL_SIMOBUCKPWR_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_SIMOBUCKPWR_MASK,
+        SCPM_PWR_CTL_SIMOBUCKPWR_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_ALLPWREN_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_ALLPWREN_MASK,
+        SCPM_PWR_CTL_ALLPWREN_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_ALLPWRSTATUS_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_ALLPWRSTATUS_MASK,
+        SCPM_PWR_CTL_ALLPWRSTATUS_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_SSRAMPWREN_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_SSRAMPWREN_MASK,
+        SCPM_PWR_CTL_SSRAMPWREN_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_SSRAMPWRSTATUS_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_SSRAMPWRSTATUS_MASK,
+        SCPM_PWR_CTL_SSRAMPWRSTATUS_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_SSRAMRETCFG_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_SSRAMRETCFG_MASK,
+        SCPM_PWR_CTL_SSRAMRETCFG_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DSPMEMRETCFG_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DSPMEMRETCFG_MASK,
+        SCPM_PWR_CTL_DSPMEMRETCFG_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DSPPERFREQ_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DSPPERFREQ_MASK,
+        SCPM_PWR_CTL_DSPPERFREQ_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DSPTCMDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DSPTCMDLY_MASK,
+        SCPM_PWR_CTL_DSPTCMDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DSPCACHEDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DSPCACHEDLY_MASK,
+        SCPM_PWR_CTL_DSPCACHEDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_BASSRAMDLY_ADDR,
+        SCPM_PWR_CTL_BASSRAMDLY_MASK,
+        SCPM_PWR_CTL_BASSRAMDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_BASOTPDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_BASOTPDLY_MASK,
+        SCPM_PWR_CTL_BASOTPDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_AONDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_AONDLY_MASK,
+        SCPM_PWR_CTL_AONDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_AOHDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_AOHDLY_MASK,
+        SCPM_PWR_CTL_AOHDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DBGDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DBGDLY_MASK,
+        SCPM_PWR_CTL_DBGDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_AUDDDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_AUDDDLY_MASK,
+        SCPM_PWR_CTL_AUDDDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_AUDHPDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_AUDHPDLY_MASK,
+        SCPM_PWR_CTL_AUDHPDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_BASLDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_BASLDLY_MASK,
+        SCPM_PWR_CTL_BASLDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DSPEXMDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DSPEXMDLY_MASK,
+        SCPM_PWR_CTL_DSPEXMDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_RFEXTDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_RFEXTDLY_MASK,
+        SCPM_PWR_CTL_RFEXTDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_VDDSPLLDLY_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_VDDSPLLDLY_MASK,
+        SCPM_PWR_CTL_VDDSPLLDLY_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_PWRACKOVR_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_PWRACKOVR_MASK,
+        SCPM_PWR_CTL_PWRACKOVR_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DIGPWRSWOVRD1_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DIGPWRSWOVRD1_MASK,
+        SCPM_PWR_CTL_DIGPWRSWOVRD1_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DIGPWRSWOVRD2_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DIGPWRSWOVRD2_MASK,
+        SCPM_PWR_CTL_DIGPWRSWOVRD2_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_DIGPWRSWOVRD3_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_DIGPWRSWOVRD3_MASK,
+        SCPM_PWR_CTL_DIGPWRSWOVRD3_SRESET,
+    },
+    {
+        SCPM_PWR_CTL_ANAPWRSWCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_PWR_CTL_ANAPWRSWCTL_MASK,
+        SCPM_PWR_CTL_ANAPWRSWCTL_SRESET,
+    }
+};
+
+ambt53_reg_t scpm_reg_list[REG_SCPM_REG_COUNT] = 
+{
+    {
+        SCPM_SWRESET_ADDR,
+        REG_PROP_RW,
+        SCPM_SWRESET_MASK,
+        SCPM_SWRESET_RESET,
+    },
+    {
+        SCPM_RSTGENCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_RSTGENCTL_MASK,
+        SCPM_RSTGENCTL_RESET,
+    },
+    {
+        SCPM_RSTGENFORCECTL_ADDR,
+        REG_PROP_RW,
+        SCPM_RSTGENFORCECTL_MASK,
+        SCPM_RSTGENFORCECTL_RESET,
+    },
+    {
+        SCPM_I2CSTAT_ADDR,
+        REG_PROP_RO,
+        SCPM_I2CSTAT_MASK,
+        SCPM_I2CSTAT_RESET,
+    },
+    {
+        SCPM_SCPMCLKCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_SCPMCLKCTL_MASK,
+        SCPM_SCPMCLKCTL_RESET,
+    },
+    {
+        SCPM_SCPMOTPMUXCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_SCPMOTPMUXCTL_MASK,
+        SCPM_SCPMOTPMUXCTL_RESET,
+    },
+    {
+        SCPM_SWRESETBLKS_ADDR,
+        REG_PROP_RW,
+        SCPM_SWRESETBLKS_MASK,
+        SCPM_SWRESETBLKS_RESET,
+    }
+};
+
+ambt53_reg_t scpm_testmode_reg_list[REG_SCPM_TEST_COUNT] = 
+{
+    {
+        SCPM_TESTMODE_TESTMODECTL_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_TESTMODECTL_MASK,
+        SCPM_TESTMODE_TESTMODECTL_RESET,
+    },
+    {
+        SCPM_TESTMODE_ANALOG0_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_ANALOG0_MASK,
+        SCPM_TESTMODE_ANALOG0_RESET,
+    },
+    {
+        SCPM_TESTMODE_ANALOG1_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_ANALOG1_MASK,
+        SCPM_TESTMODE_ANALOG1_RESET,
+    },
+    {
+        SCPM_TESTMODE_CODEC0_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_CODEC0_MASK,
+        SCPM_TESTMODE_CODEC0_RESET,
+    },
+    {
+        SCPM_TESTMODE_CODEC1_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_CODEC1_MASK,
+        SCPM_TESTMODE_CODEC1_RESET,
+    },
+    {
+        SCPM_TESTMODE_OBSBUSMUXCTL_ADDR,
+        REG_PROP_RW,
+        SCPM_TESTMODE_OBSBUSMUXCTL_MASK,
+        SCPM_TESTMODE_OBSBUSMUXCTL_RESET,
+    }
+};
+
+ambt53_reg_t ext_gpio0_reg_list[] =
+{
+    {
+        AMBT53_GPIO_DIR_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_CTRL_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_SET_REG(0),
+        REG_PROP_WO,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_CLR_REG(0),
+        REG_PROP_WO,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_ODATA_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IDATA_REG(0),
+        REG_PROP_RO,
+        AMBT53_GPIO0_MASK,
+        0xFFFFFFFF,
+    },
+    {
+        AMBT53_GPIO_IEN_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IS_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IBE_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IEV_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_RIS_REG(0),
+        REG_PROP_RO,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IM_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_MIS_REG(0),
+        REG_PROP_RO,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IC_REG(0),
+        REG_PROP_WO,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_DB_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_DFG_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IM1_REG(0),
+        REG_PROP_RW,
+        AMBT53_GPIO0_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_MIS1_REG(0),
+        REG_PROP_RO,
+        AMBT53_GPIO0_MASK,
+        0,
+    }
+};
+#define REG_AMBT53_GPIO0_COUNT    (sizeof(ext_gpio0_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t ext_gpio1_reg_list[] =
+{
+    {
+        AMBT53_GPIO_DIR_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_CTRL_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_SET_REG(1),
+        REG_PROP_WO,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_CLR_REG(1),
+        REG_PROP_WO,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_ODATA_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IDATA_REG(1),
+        REG_PROP_RO,
+        AMBT53_GPIO1_MASK,
+        0xFFFFFFFF,
+    },
+    {
+        AMBT53_GPIO_IEN_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IS_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IBE_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IEV_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_RIS_REG(1),
+        REG_PROP_RO,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IM_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_MIS_REG(1),
+        REG_PROP_RO,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IC_REG(1),
+        REG_PROP_WO,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_DB_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_DFG_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_IM1_REG(1),
+        REG_PROP_RW,
+        AMBT53_GPIO1_MASK,
+        0,
+    },
+    {
+        AMBT53_GPIO_MIS1_REG(1),
+        REG_PROP_RO,
+        AMBT53_GPIO1_MASK,
+        0,
+    }
+};
+#define REG_AMBT53_GPIO1_COUNT    (sizeof(ext_gpio1_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t ext_gpio_scr_reg_list[] =
+{
+    {
+        SCPM_IO_CFG_MODE_SEL_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_MODE_SEL_MASK,
+        SCPM_IO_CFG_MODE_SEL_RESET,
+    },
+    {
+        SCPM_IO_CFG_TOP_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_TOP_MASK,
+        SCPM_IO_CFG_TOP_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON0_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON0_MASK,
+        SCPM_IO_CFG_AON0_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON1_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON1_MASK,
+        SCPM_IO_CFG_AON1_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON2_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON2_MASK,
+        SCPM_IO_CFG_AON2_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON3_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON3_MASK,
+        SCPM_IO_CFG_AON3_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON4_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON4_MASK,
+        SCPM_IO_CFG_AON4_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON5_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON5_MASK,
+        SCPM_IO_CFG_AON5_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON6_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON6_MASK,
+        SCPM_IO_CFG_AON6_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON7_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON7_MASK,
+        SCPM_IO_CFG_AON7_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON8_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON8_MASK,
+        SCPM_IO_CFG_AON8_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON9_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON9_MASK,
+        SCPM_IO_CFG_AON9_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON10_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON10_MASK,
+        SCPM_IO_CFG_AON10_RESET,
+    },
+    {
+        SCPM_IO_CFG_AON11_ADDR,
+        REG_PROP_RW,
+        SCPM_IO_CFG_AON11_MASK,
+        SCPM_IO_CFG_AON11_RESET,
+    }
+};
+#define REG_AMBT53_GPIO_SCR_COUNT    (sizeof(ext_gpio_scr_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_timer_reg_list[] =
+{
+    {
+        TIMER0_CFG_ADDR,
+        REG_PROP_RW,
+        TIMER0_CFG_RW_TEST_MASK,// TODO maybe sepec.err bit16 RES & bit18 CT is WO
+        TIMER0_CFG_RESET,
+    },
+    {
+        TIMER0_EW_ADDR,
+        REG_PROP_RW,
+        TIMER0_EW_MASK,//TODO maybe sepec.err bit0 EW is WO
+        TIMER0_EW_RESET,
+    },
+    {
+        TIMER0_CC_ADDR,
+        REG_PROP_RO,
+        TIMER0_CC_MASK,
+        TIMER0_CC_RESET,
+    },
+    {
+        TIMER0_SC_ADDR,
+        REG_PROP_RW,
+        TIMER0_SC_MASK,
+        TIMER0_SC_RESET,
+    },
+    {
+        TIMER1_CFG_ADDR,
+        REG_PROP_RW,
+        TIMER1_CFG_RW_TEST_MASK,
+        TIMER1_CFG_RESET,
+    },
+    {
+        TIMER1_EW_ADDR,
+        REG_PROP_RW,
+        TIMER1_EW_MASK,
+        TIMER1_EW_RESET,
+    },
+    {
+        TIMER1_CC_ADDR,
+        REG_PROP_RO,
+        TIMER1_CC_MASK,
+        TIMER1_CC_RESET,
+    },
+    {
+        TIMER1_SC_ADDR,
+        REG_PROP_RW,
+        TIMER1_SC_MASK,
+        TIMER1_SC_RESET,
+    },
+    {
+        TIMER2_CFG_ADDR,
+        REG_PROP_RW,
+        TIMER2_CFG_RW_TEST_MASK,
+        TIMER2_CFG_RESET,
+    },
+    {
+        TIMER2_EW_ADDR,
+        REG_PROP_RW,
+        TIMER2_EW_MASK,
+        TIMER2_EW_RESET,
+    },
+    {
+        TIMER2_CC_ADDR,
+        REG_PROP_RO,
+        TIMER2_CC_MASK,
+        TIMER2_CC_RESET,
+    },
+    {
+        TIMER2_SC_ADDR,
+        REG_PROP_RW,
+        TIMER2_SC_MASK,
+        TIMER2_SC_RESET,
+    },
+    {
+        TIMER3_CFG_ADDR,
+        REG_PROP_RW,
+        TIMER3_CFG_RW_TEST_MASK,
+        TIMER3_CFG_RESET,
+    },
+    {
+        TIMER3_EW_ADDR,
+        REG_PROP_RW,
+        TIMER3_EW_MASK,
+        TIMER3_EW_RESET,
+    },
+    {
+        TIMER3_CC_ADDR,
+        REG_PROP_RO,
+        TIMER3_CC_MASK,
+        TIMER3_CC_RESET,
+    },
+    {
+        TIMER3_SC_ADDR,
+        REG_PROP_RW,
+        TIMER3_SC_MASK,
+        TIMER3_SC_RESET,
+    },
+    {
+        TIMER_IRQ_ADDR,
+        REG_PROP_RWC,
+        TIMER_IRQ_MASK,
+        TIMER_IRQ_RESET,
+    }
+};
+#define REG_BX1_TIMER_COUNT    (sizeof(bx1_timer_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_icu_reg_list[] =
+{
+    {
+        ISR0_ADDR,
+        REG_PROP_RO,
+        ISR0_MASK,
+        ISR0_RESET,
+    },
+    {
+        ICR0_ADDR,
+        REG_PROP_WC,//SPEC ERR. REG_PROP_RW
+        ICR0_MASK,
+        ICR0_RESET,
+    },
+    {
+        IGR0_ADDR,
+        REG_PROP_RW,//it's  only written with 1,pass
+        IGR0_MASK,
+        IGR0_RESET,
+    },
+    {
+        IMR0_ADDR,
+        REG_PROP_RW,
+        IMR0_MASK,
+        IMR0_RESET,
+    },
+    {
+        IGMR_ADDR,
+        REG_PROP_RW,
+        IGMR_MASK,
+        IGMR_RESET,
+    },
+    {
+        IVA2_ADDR,
+        REG_PROP_RW,
+        IVA2_MASK,
+        IVA2_RESET,
+    },
+    {
+        IVA3_ADDR,
+        REG_PROP_RW,
+        IVA3_MASK,
+        IVA3_RESET,
+    },
+    {
+        IVA4_ADDR,
+        REG_PROP_RW,
+        IVA4_MASK,
+        IVA4_RESET,
+    },
+    {
+        IVA5_ADDR,
+        REG_PROP_RW,
+        IVA5_MASK,
+        IVA5_RESET,
+    },
+    {
+        IVA6_ADDR,
+        REG_PROP_RW,
+        IVA6_MASK,
+        IVA6_RESET,
+    },
+    {
+        IVA7_ADDR,
+        REG_PROP_RW,
+        IVA7_MASK,
+        IVA7_RESET,
+    }
+};
+#define BX1_ICU_REG_TEST_COUNT    (sizeof(bx1_icu_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_icu_config_reg_list[] =
+{
+    {
+        ICFG0_ADDR,
+        REG_PROP_RW,
+        ICFG0_RO_MASK,
+        ICFG0_RESET,
+    }
+};
+#define BX1_ICU_CONFIG_REG_COUNT    (sizeof(bx1_icu_config_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_multi_core_config_reg_list[] =
+{
+    {
+        BX1_COM_REG_ADDR,
+        REG_PROP_WO,
+        BX1_COM_REG_MASK,
+        BX1_COM_REG_RESET,
+    },
+    {
+        BX1_COM_STS_ADDR,
+        REG_PROP_RWC,
+        BX1_COM_STS_MASK,
+        BX1_COM_STS_RESET,
+    },
+    {
+        BX1_COM_INT_EN_ADDR,
+        REG_PROP_RW,
+        BX1_COM_INT_EN_MASK,
+        BX1_COM_INT_EN_RESET,
+    },
+    {
+        BX1_START_ADDR_ADDR,
+        REG_PROP_RW,
+        BX1_START_ADDR_MASK,
+        BX1_START_ADDR_RESET,
+    },
+    {
+        BX1_TOP_ADDR_ADDR,
+        REG_PROP_RW,
+        BX1_TOP_ADDR_MASK,
+        BX1_TOP_ADDR_RESET,
+    },
+    {
+        BX1_SNOOP_CSR_ADDR,
+        REG_PROP_RW,
+        BX1_SNOOP_CSR_RW_MASK,
+        BX1_SNOOP_CSR_RESET,
+    }
+};
+#define REG_BX1_MultiCoreConfiguration_COUNT    (sizeof(bx1_multi_core_config_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_pmss_reg_list[] =
+{
+    {
+        BX1_MSS_PCR_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_PCR_MASK,
+        BX1_MSS_PCR_RESET,
+    },
+    {
+        BX1_P_ADD0_START_ADDR,
+        REG_PROP_RO,
+        BX1_P_ADD0_START_MASK,
+        BX1_P_ADD0_START_RESET,
+    },
+    {
+        BX1_P_ADD0_ATT0_ADDR,
+        REG_PROP_RW,
+        BX1_P_ADD0_ATT0_MASK,
+        BX1_P_ADD0_ATT0_RESET,
+    },
+    {
+        BX1_P_ADDx_START_ADDR,
+        REG_PROP_RW,
+        BX1_P_ADDx_START_MASK,
+        BX1_P_ADDx_START_RESET,
+    },
+    {
+        BX1_P_ADDx_ATT0_ADDR,
+        REG_PROP_RW,
+        BX1_P_ADDx_ATT0_MASK,
+        BX1_P_ADDx_ATT0_RESET,
+    },
+    {
+        BX1_P_CCOSAR_ADDR,
+        REG_PROP_RW,
+        BX1_P_CCOSAR_MASK,
+        BX1_P_CCOSAR_RESET,
+    },
+    {
+        BX1_P_CCOCR_ADDR,
+        REG_PROP_RW,
+        BX1_P_CCOCR_MASK,
+        BX1_P_CCOCR_RESET,
+    }
+};
+#define REG_BX1_PMSS_COUNT    (sizeof(bx1_pmss_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_dmss_reg_list[] =
+{
+    {
+        BX1_MSS_HDCFG_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_HDCFG_MASK,
+        BX1_MSS_HDCFG_RESET,
+    },
+    {
+        BX1_MSS_MEMCFG_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_MEMCFG_MASK,
+        BX1_MSS_MEMCFG_RESET,
+    },
+    {
+        BX1_MSS_SDCFG_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_SDCFG_MASK,
+        BX1_MSS_SDCFG_RESET,
+    },
+    {
+        BX1_MSS_DMBE_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_DMBE_MASK,
+        BX1_MSS_DMBE_RESET,
+    },
+    {
+        BX1_MSS_DDEA_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_DDEA_MASK,
+        BX1_MSS_DDEA_RESET,
+    },
+    {
+        BX1_MSS_DDIA_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_DDIA_MASK,
+        BX1_MSS_DDIA_RESET,
+    },
+    {
+        BX1_MSS_DDTC_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_DDTC_MASK,
+        BX1_MSS_DDTC_RESET,
+    },
+    {
+        BX1_MSS_DDQS_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_DDQS_MASK,
+        BX1_MSS_DDQS_RESET,
+    },
+    {
+        BX1_MSS_DDRS_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_DDRS_MASK,
+        BX1_MSS_DDRS_RESET,
+    },
+    {
+        BX1_MSS_BARRIER_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_BARRIER_MASK,
+        BX1_MSS_BARRIER_RESET,
+    },
+    {
+        BX1_CCOSAR_ADDR,
+        REG_PROP_RW,
+        BX1_CCOSAR_MASK,
+        BX1_CCOSAR_RESET,
+    },
+    {
+        BX1_CCOSLR_ADDR,
+        REG_PROP_RW,
+        BX1_CCOSLR_MASK,
+        BX1_CCOSLR_RESET,
+    },
+    {
+        BX1_CCOCR_ADDR,
+        REG_PROP_RW,
+        BX1_CCOCR_RW_MASK,
+        BX1_CCOCR_RESET,
+    },
+    {
+        BX1_MSS_GPOUT_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_GPOUT_MASK,
+        BX1_MSS_GPOUT_RESET,
+    },
+    {
+        BX1_MSS_GPIN_ADDR,
+        REG_PROP_RO,
+        BX1_MSS_GPIN_MASK,
+        BX1_MSS_GPIN_RESET,
+    }
+};
+#define REG_BX1_DMSS_COUNT    (sizeof(bx1_dmss_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_interface_config_reg_list[] =
+{
+    {
+        BX1_XCI_COR_ADDR,
+        REG_PROP_RW,
+        BX1_XCI_COR_MASK,
+        BX1_XCI_COR_RESET,
+    },
+    {
+        BX1_MSS_DMBA_ADDR,
+        REG_PROP_RW,
+        BX1_MSS_DMBA_MASK,
+        BX1_MSS_DMBA_RESET,
+    },
+    {
+        BX1_ADD0_START_ADDR,
+        REG_PROP_RO,
+        BX1_ADD0_START_MASK,
+        BX1_ADD0_START_RESET,
+    },
+    {
+        BX1_ADD0_ATT0_ADDR,
+        REG_PROP_RW,
+        BX1_ADD0_ATT0_MASK,
+        BX1_ADD0_ATT0_RESET,
+    },
+    {
+        BX1_ADD0_ATT1_ADDR,
+        REG_PROP_RW,
+        BX1_ADD0_ATT1_MASK,
+        BX1_ADD0_ATT1_RESET,
+    },
+    {
+        BX1_ADDx_START_ADDR,
+        REG_PROP_RW,
+        BX1_ADDx_START_MASK,
+        BX1_ADDx_START_RESET,
+    },
+    {
+        BX1_ADDx_ATT0_ADDR,
+        REG_PROP_RW,
+        BX1_ADDx_ATT0_MASK,
+        BX1_ADDx_ATT0_RESET,
+    },
+    {
+        BX1_ADDx_ATT1_ADDR,
+        REG_PROP_RW,
+        BX1_ADDx_ATT1_MASK,
+        BX1_ADDx_ATT1_RESET,
+    }
+};
+#define REG_BX1_InterfaceConfiguration_COUNT    (sizeof(bx1_interface_config_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_ap_reg_list[] =
+{
+    {
+        BX1_MAPAR_ADDR,
+        REG_PROP_RO,
+        BX1_MAPAR_MASK,
+        BX1_MAPAR_RESET,
+    },
+    {
+        BX1_DTAP_ADDR,
+        REG_PROP_RW,
+        BX1_DTAP_MASK,
+        BX1_DTAP_RESET,
+    }
+};
+#define REG_BX1_AP_COUNT    (sizeof(bx1_ap_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_dbg_reg_list[] =
+{
+    {
+        BX1_DBG_DDAM_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_DDAM_MASK,
+        BX1_DBG_DDAM_RESET,
+    },
+    {
+        BX1_DBG_DDS_ADDR,
+        REG_PROP_RWC,
+        BX1_DBG_DDS_MASK,
+        BX1_DBG_DDS_RESET,
+    },
+    {
+        BX1_DBG_DDC_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_DDC_MASK,
+        BX1_DBG_DDC_RESET,
+    },
+    {
+        BX1_POSCINT_ADDR,
+        REG_PROP_RW,
+        BX1_POSCINT_MASK,
+        BX1_POSCINT_RESET,
+    },
+    {
+        BX1_NENSIRQ_ADDR,
+        REG_PROP_RWC,
+        BX1_NENSIRQ_MASK,
+        BX1_NENSIRQ_RESET,
+    },
+    {
+        BX1_CENSIRQ_ADDR,
+        REG_PROP_RWC,
+        BX1_CENSIRQ_MASK,
+        BX1_CENSIRQ_RESET,
+    },
+    {
+        BX1_DBG_GEN_ADDR,
+        REG_PROP_RWC,
+        BX1_DBG_GEN_MASK,
+        BX1_DBG_GEN_RESET,
+    },
+    {
+        BX1_DBG_GEN_MASK_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_GEN_MASK_MASK,
+        BX1_DBG_GEN_MASK_RESET,
+    },
+    {
+        BX1_M_NENSIRQ_ADDR,
+        REG_PROP_RW,
+        BX1_M_NENSIRQ_MASK,
+        BX1_M_NENSIRQ_RESET,
+    },
+    {
+        BX1_M_CENSIRQ_ADDR,
+        REG_PROP_RW,
+        BX1_M_CENSIRQ_MASK,
+        BX1_M_CENSIRQ_RESET,
+    },
+    {
+        BX1_DBG_STACK_START_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_STACK_START_MASK,
+        BX1_DBG_STACK_START_RESET,
+    },
+    {
+        BX1_DBG_STACK_END_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_STACK_END_MASK,
+        BX1_DBG_STACK_END_RESET,
+    },
+    {
+        BX1_DBG_DUNMPD_ADDR,
+        REG_PROP_RO,
+        BX1_DBG_DUNMPD_MASK,
+        BX1_DBG_DUNMPD_RESET,
+    },
+    {
+        BX1_DBG_DUNMPD_MSK_ADDR,
+        REG_PROP_RW,
+        BX1_DBG_DUNMPD_MSK_MASK,
+        BX1_DBG_DUNMPD_MSK_RESET,
+    }
+};
+#define REG_BX1_DBG_COUNT    (sizeof(bx1_dbg_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_t bx1_psu_reg_list[] =
+{
+    {
+         BX1_PSVM_ADDR,
+         REG_PROP_RW,
+         BX1_PSVM_MASK,
+         BX1_PSVM_RESET,
+    },
+    {
+         BX1_PGR_ADDR,
+         REG_PROP_RW,
+         BX1_PGR_MASK,
+         BX1_PGR_RESET,
+     }
+};
+#define REG_BX1_PSU_COUNT    (sizeof(bx1_psu_reg_list) / sizeof(ambt53_reg_t))
+
+ambt53_reg_test_t ambt53_reg_list[] =
+{
+
+    {pmu_reg_list,              REG_PMU_COUNT,          "PMU"},
+#if 0   
+    {sys_icu_reg_list,          REG_APB_ICU_COUNT,      "SYS_ICU"},
+    {sys_timer_reg_list,        REG_APB_TIMER_COUNT,    "SYS_TIMER"},
+    {sys_gpio_reg_list,         REG_APB_GPIO_COUNT,     "SYS_GPIO"},
+    {sbox_reg_list,             REG_SBOX_COUNT,         "SBOX"},
+    {xdma_gcs_reg_list,         REG_XDMA_GCS_COUNT,     "XDMA_GCS"},
+    {xdma_dtc_reg_list,         REG_XDMA_DTC_TEST_COUNT, "XDMA_DTC"},
+    {btdmp_reg_list,            REG_BTDMP_TEST_COUNT,   "BT_DMP"},
+    {bticu_reg_list,            REG_INTCNTL_COUNT,      "BT_ICU"},
+    {uart_reg_list,             REG_UART_COUNT,         "UART"},
+    {counter_reg_list,          REG_COUNTER_COUNT,      "COUNTER"},
+    {btgpio_reg_list,           REG_GPIO_COUNT,         "BT_GPIO"},
+    {spi_reg_list,              REG_SPI_COUNT,          "SPIM"},
+    {dmac_common_reg_reg_list,  REG_DMAC_COMMON_COUNT,  "DMAC_COMMON"},
+    {dmac_channel_reg_reg_list, REG_DMAC_CHANNEL_COUNT, "DMAC_CHANNEL"},
+    {i2c_reg_list,              REG_I2C_COUNT,           "I2C"},
+    {bx1_timer_reg_list,        REG_BX1_TIMER_COUNT,    "BX1_TIMER"},
+    {bx1_icu_reg_list,          BX1_ICU_REG_TEST_COUNT, "BX1_ICU"},
+    {bx1_icu_config_reg_list,   BX1_ICU_CONFIG_REG_COUNT, "BX1_ICU_CONFIG"},
+    {bx1_multi_core_config_reg_list,   REG_BX1_MultiCoreConfiguration_COUNT, "BX1_MULTI_CORE_CONFIG"},
+    {bx1_pmss_reg_list,         REG_BX1_PMSS_COUNT,     "BX1_PMSS"},
+    {bx1_dmss_reg_list,         REG_BX1_DMSS_COUNT,     "BX1_DMSS"},
+    {bx1_interface_config_reg_list,   REG_BX1_InterfaceConfiguration_COUNT, "BX1_INTERFACE_CONFIG"},
+    {bx1_ap_reg_list,           REG_BX1_AP_COUNT,       "BX1_AP"},
+    {bx1_dbg_reg_list,          REG_BX1_DBG_COUNT,      "BX1_DBG"},
+    {bx1_psu_reg_list,          REG_BX1_PSU_COUNT,      "BX1_PSU"},
+    {mailbox_reg_list,          REG_MAILBOX_COUNT,      "MAILBOX"},
+//    {efuse_reg_list,            REG_EFUSE_COUNT,        "EFUSE"},
+    {tdm_mux_reg_list,          REG_TDM_MUX_COUNT,      "TDM_MUX"},
+    {pta_reg_list,              REG_PTA_COUNT,          "PTA"},
+#endif
+    {scpm_sclk_reg_list,       REG_SCPM_SCLK_COUNT,     "SCPM_SCLK"},
+    {scpm_ahb_fab_reg_list,    REG_SCPM_AHB_FAB_COUNT,  "SCPM_AHB_FAB"},
+    {scpm_ana_ctl_reg_list,    REG_SCPM_ANA_CTL_COUNT,  "SCPM_ANA_CTL"},
+    {scpm_btdm_ctl_reg_list,   REG_SCPM_BTDM_CTL_COUNT, "SCPM_BTDM_CTL"},
+    {scpm_clk_gate_reg_list,   REG_SCPM_CG_COUNT,       "SCPM_CLK_GATE"},
+    {scpm_coex_reg_list,       REG_SCPM_COEX_COUNT,     "SCPM_COEX_REG"},
+    {scpm_dsp_ctl_reg_list,    REG_SCPM_DSP_CTL_COUNT,  "SCPM_DSP_CTL"},
+    {scpm_irq_ctrl_reg_list,   REG_SCPM_IRQ_CTRL_COUNT, "SCPM_IRQ_CTL"},
+    {scpm_mem_ctl_reg_list,    REG_SCPM_MEM_CTL_COUNT,  "SCPM_MEM_CTL"},
+    {scpm_pad_ctl_reg_list,    REG_SCPM_PAD_CTL_COUNT,  "SCPM_PAD_CTL"},
+    {scpm_pll_ctl_reg_list,    REG_SCPM_PLL_COUNT,      "SCPM_PLL_CTL"},
+    {scpm_psu_ctl_reg_list,    REG_SCPM_PSU_COUNT,      "SCPM_PSU_CTL"},
+    {scpm_pwr_ctl_reg_list,    REG_SCPM_PWR_CTL_COUNT,  "SCPM_PWR_CTL"},
+    {scpm_reg_list,            REG_SCPM_REG_COUNT,      "SCPM_REG"},
+    {scpm_testmode_reg_list,   REG_SCPM_TEST_COUNT,     "SCPM_TEST_MODE_REG"},
+};
+
+uint32_t START_REG_INDEX = 0;
+uint32_t END_REG_INDEX = (sizeof(ambt53_reg_list) / sizeof(ambt53_reg_test_t));
+
+ambt53_reg_test_t scpm_all_reg_list[] =
+{
+    {scpm_sclk_reg_list,       REG_SCPM_SCLK_COUNT,     "SCPM_SCLK"},
+    {scpm_ahb_fab_reg_list,    REG_SCPM_AHB_FAB_COUNT,  "SCPM_AHB_FAB"},
+    {scpm_ana_ctl_reg_list,    REG_SCPM_ANA_CTL_COUNT,  "SCPM_ANA_CTL"},
+    {scpm_btdm_ctl_reg_list,   REG_SCPM_BTDM_CTL_COUNT, "SCPM_BTDM_CTL"},
+    {scpm_clk_gate_reg_list,   REG_SCPM_CG_COUNT,       "SCPM_CLK_GATE"},
+    {scpm_coex_reg_list,       REG_SCPM_COEX_COUNT,     "SCPM_COEX_REG"},
+    {scpm_dsp_ctl_reg_list,    REG_SCPM_DSP_CTL_COUNT,  "SCPM_DSP_CTL"},
+    {scpm_irq_ctrl_reg_list,   REG_SCPM_IRQ_CTRL_COUNT, "SCPM_IRQ_CTL"},
+    {scpm_mem_ctl_reg_list,    REG_SCPM_MEM_CTL_COUNT,  "SCPM_MEM_CTL"},
+    {scpm_pad_ctl_reg_list,    REG_SCPM_PAD_CTL_COUNT,  "SCPM_PAD_CTL"},
+    {scpm_pll_ctl_reg_list,    REG_SCPM_PLL_COUNT,      "SCPM_PLL_CTL"},
+    {scpm_psu_ctl_reg_list,    REG_SCPM_PSU_COUNT,      "SCPM_PSU_CTL"},
+    {scpm_pwr_ctl_reg_list,    REG_SCPM_PWR_CTL_COUNT,  "SCPM_PWR_CTL"},
+    {scpm_reg_list,            REG_SCPM_REG_COUNT,      "SCPM_REG"},
+    {scpm_testmode_reg_list,   REG_SCPM_TEST_COUNT,     "SCPM_TEST_MODE_REG"},
+    //{ext_gpio0_reg_list,        REG_AMBT53_GPIO0_COUNT,   "AMBT53_GPIO0"},
+    //{ext_gpio1_reg_list,        REG_AMBT53_GPIO1_COUNT,   "AMBT53_GPIO1"},
+    //{ext_gpio_scr_reg_list,     REG_AMBT53_GPIO_SCR_COUNT, "AMBT53_GPIO_SCR"}
+};
+
+uint32_t START_SCPM_REG_INDEX = 0;
+uint32_t END_SCPM_REG_INDEX = (sizeof(scpm_all_reg_list) / sizeof(ambt53_reg_test_t));
+
+ambt53_reg_t scpm_clk_test_list[32] =
+{
+    //audio_adc_audmclk
+    {
+        0, 0, 0, 0
+    },
+    //btdm_dsp_tdmclk
+    {
+        0, 0, 0, 0
+    },
+    //tdm_mux_tdmclk
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //btdm_dsp_coreclk
+    {
+        0, 0, 0, 0
+    },
+    //psu_ref_clk
+    {
+        0, 0, 0, 0
+    },
+    //mcu_ahfclk
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //bus_hclk
+    {
+        0, 0, 0, 0
+    },
+    //audio_adc_hclk
+    {
+        0, 0, 0, 0
+    },
+    //xspi_hclk
+    {
+        0, 0, 0, 0
+    },
+    //sramc0_hclk
+    {
+        0, 0, 0, 0
+    },
+    //sramc1_hclk
+    {
+        0, 0, 0, 0
+    },
+    //sramc2_hclk
+    {
+        0, 0, 0, 0
+    },
+    //sramc3_hclk
+    {
+        0, 0, 0, 0
+    },
+    //mailbox_hclk
+    {
+        0, 0, 0, 0
+    },
+    //scpm_hclk
+    {
+        0, 0, 0, 0
+    },
+    //scpm_pclk
+    {
+        0, 0, 0, 0
+    },
+    //efuse_hclk
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //btdm_trx_pclk
+    {
+        0, 0, 0, 0
+    },
+    //audio_adc_pclk
+    {
+        0, 0, 0, 0
+    },
+    //tdm_mux_pclk
+    {
+        0, 0, 0, 0
+    },
+    //bt_pta_pclk
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    },
+    //reserved
+    {
+        0, 0, 0, 0
+    }
+};
+

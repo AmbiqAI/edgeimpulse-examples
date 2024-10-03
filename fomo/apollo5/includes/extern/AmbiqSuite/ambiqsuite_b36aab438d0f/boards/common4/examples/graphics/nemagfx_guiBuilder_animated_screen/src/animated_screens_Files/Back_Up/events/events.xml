@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EVENTS_0_16>
+    <EVENT NAME="on_4_Label_Button1_release" TRIGGER="2" SOURCE_ID="4">
+        <ACTION INDEX="4" RECURRENCY="2" DURATION="0.3" EFFECT="0" RETRIGGER="0" TARGET="2"/>
+    </EVENT>
+    <EVENT NAME="on_6_Label_Button2_release" TRIGGER="2" SOURCE_ID="6">
+        <ACTION INDEX="4" RECURRENCY="2" DURATION="0.3" EFFECT="4" RETRIGGER="0" TARGET="3"/>
+    </EVENT>
+    <EVENT NAME="on_8_Label_Button3_release" TRIGGER="2" SOURCE_ID="8">
+        <ACTION INDEX="4" RECURRENCY="2" DURATION="0.3" EFFECT="5" RETRIGGER="0" TARGET="1"/>
+    </EVENT>
+</EVENTS_0_16>

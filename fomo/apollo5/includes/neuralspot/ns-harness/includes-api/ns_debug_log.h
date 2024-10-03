@@ -15,12 +15,14 @@ limitations under the License.
 #ifndef NS_TENSORFLOW_LITE_MICRO_DEBUG_LOG_H_
 #define NS_TENSORFLOW_LITE_MICRO_DEBUG_LOG_H_
 
+#include "ns_perf_profile.h"
+#include "ns_timer.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
 
-#include "ns_perf_profile.h"
-#include "ns_timer.h"
+
 
 // Match TFLM kMaxEvents
 #define NS_PROFILER_MAX_EVENTS 4096

@@ -1,0 +1,529 @@
+# *****************************************************************************
+#                                                                             *
+#  bsp_pins.src                                                               *
+#                                                                             *
+#  Ambiq Micro BSP pins definitions                                           *
+#                                                                             *
+# *****************************************************************************
+
+# *****************************************************************************
+#
+# ${copyright}
+#
+# This is part of revision ${version} of the AmbiqSuite Development Package.
+#
+# *****************************************************************************
+
+# *****************************************************************************
+#                                                                             *
+# ${bsp_src_help}
+#                                                                             *
+# *****************************************************************************
+
+# *****************************************************************************
+#                                                                             *
+#  The .src file version determines the appropriate pin template to be used   *
+#  and thus is device dependent.                                              *
+#  Apollo3: 0x0003.                                                           *
+#                                                                             *
+# *****************************************************************************
+pinsrc_ver = 0x0003
+
+
+# *****************************************************************************
+#  LEDs and buttons
+# *****************************************************************************
+pin
+    name            = BUTTON0
+    desc            = BUTTON 0.
+    pinnum          = 48
+    func_sel        = AM_HAL_PIN_48_GPIO
+    drvstrength     = 2
+    GPinput         = true
+
+pin
+    name            = BUTTON1
+    desc            = BUTTON 1.
+    pinnum          = 49
+    func_sel        = AM_HAL_PIN_49_GPIO
+    drvstrength     = 2
+    GPinput         = true
+
+pin
+    name            = LED0
+    desc            = LED 0.
+    pinnum          = 25
+    func_sel        = AM_HAL_PIN_25_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED1
+    desc            = LED 1.
+    pinnum          = 24
+    func_sel        = AM_HAL_PIN_24_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED2
+    desc            = LED 2.
+    pinnum          = 30
+    func_sel        = AM_HAL_PIN_30_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED3
+    desc            = LED 3.
+    pinnum          = 26
+    func_sel        = AM_HAL_PIN_26_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED4
+    desc            = LED 4.
+    pinnum          = 32
+    func_sel        = AM_HAL_PIN_32_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED5
+    desc            = LED 5.
+    pinnum          = 31
+    func_sel        = AM_HAL_PIN_31_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED6
+    desc            = LED 6.
+    pinnum          = 34
+    func_sel        = AM_HAL_PIN_34_GPIO
+    drvstrength     = 2
+
+pin
+    name            = LED7
+    desc            = LED 7.
+    pinnum          = 33
+    func_sel        = AM_HAL_PIN_33_GPIO
+    drvstrength     = 2
+
+
+# *****************************************************************************
+#  COM UART pins (UART0).
+# *****************************************************************************
+pin
+    name            = COM_UART_TX
+    desc            = This pin is the COM_UART transmit pin.
+    pinnum          = 39
+    func_sel        = AM_HAL_PIN_39_UART0TX
+    drvstrength     = 2
+
+pin
+    name            = COM_UART_RX
+    desc            = This pin is the COM_UART receive pin.
+    pinnum          = 40
+    func_sel        = AM_HAL_PIN_40_UART0RX
+
+pin
+    name            = COM_UART_CTS
+    pinnum          = 38
+    func_sel        = AM_HAL_PIN_38_UART0CTS
+
+pin
+    name            = COM_UART_RTS
+    pinnum          = 37
+    func_sel        = AM_HAL_PIN_37_UART0RTS
+    drvstrength     = 2
+
+# *****************************************************************************
+#  UART pins (UART1).
+# *****************************************************************************
+pin
+    name            = UART_TX
+    desc            = This pin is the COM_UART transmit pin.
+    pinnum          = 35
+    func_sel        = AM_HAL_PIN_35_UART1TX
+    drvstrength     = 2
+
+pin
+    name            = UART_RX
+    desc            = This pin is the COM_UART receive pin.
+    pinnum          = 36
+    func_sel        = AM_HAL_PIN_36_UART1RX
+
+pin
+    name            = UART_CTS
+    pinnum          = 45
+    func_sel        = AM_HAL_PIN_45_UART1CTS
+
+pin
+    name            = UART_RTS
+    pinnum          = 44
+    func_sel        = AM_HAL_PIN_44_UART1RTS
+    drvstrength     = 2
+
+# *****************************************************************************
+#  IOM0 pins.
+#  On the FPGA, we use SYSCON = 0x20000000 which maps IOM0 CS to pin 16 which is CE0.
+# *****************************************************************************
+pin
+    name            = IOM0_CS
+    desc            = I/O Master 0 chip select.
+    pinnum          = 16
+    func_sel        = AM_HAL_PIN_16_NCE16
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 0
+    CEnum           = 0
+    CEpol           = low
+
+pin
+    name            = IOM0_CS3
+    desc            = I/O Master 0 chip select.
+    pinnum          = 15
+    func_sel        = AM_HAL_PIN_15_NCE15
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 0
+    CEnum           = 3
+    CEpol           = low
+
+pin
+    name            = IOM0_MISO
+    desc            = I/O Master 0 SPI MISO signal.
+    pinnum          = 6
+    func_sel        = AM_HAL_PIN_6_M0MISO
+    IOMnum          = 0
+
+pin
+    name            = IOM0_MOSI
+    desc            = I/O Master 0 SPI MOSI signal.
+    pinnum          = 7
+    func_sel        = AM_HAL_PIN_7_M0MOSI
+    drvstrength     = 12
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SCK
+    desc            = I/O Master 0 SPI SCK signal.
+    pinnum          = 5
+    func_sel        = AM_HAL_PIN_5_M0SCK
+    drvstrength     = 12
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SCL
+    desc            = I/O Master 0 I2C clock signal.
+    pinnum          = 5
+    func_sel        = AM_HAL_PIN_5_M0SCL
+    GPOutcfg        = opendrain
+    drvstrength     = 12
+    pullup          = 1_5K
+    IOMnum          = 0
+
+pin
+    name            = IOM0_SDA
+    desc            = I/O Master 0 I2C data signal.
+    pinnum          = 6
+    func_sel        = AM_HAL_PIN_6_M0SDAWIR3
+    GPOutcfg        = opendrain
+    drvstrength     = 12
+    pullup          = 1_5K
+    IOMnum          = 0
+
+# *****************************************************************************
+#  IOM1 pins.
+# *****************************************************************************
+pin
+    name            = IOM1_CS
+    desc            = I/O Master 1 chip select.
+    pinnum          = 16
+    func_sel        = AM_HAL_PIN_16_NCE16
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 1
+    CEnum           = 2
+    CEpol           = low
+
+pin
+    name            = IOM1_CS0
+    desc            = I/O Master 1 chip select.
+    pinnum          = 16
+    func_sel        = AM_HAL_PIN_16_NCE16
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 1
+    CEnum           = 3
+    CEpol           = low
+
+pin
+    name            = IOM1_MISO
+    desc            = I/O Master 1 SPI MISO signal.
+    pinnum          = 9
+    func_sel        = AM_HAL_PIN_9_M1MISO
+    IOMnum          = 1
+
+pin
+    name            = IOM1_MOSI
+    desc            = I/O Master 1 SPI MOSI signal.
+    pinnum          = 10
+    func_sel        = AM_HAL_PIN_10_M1MOSI
+    drvstrength     = 12
+    IOMnum          = 1
+
+pin
+    name            = IOM1_SCK
+    desc            = I/O Master 1 SPI SCK signal.
+    pinnum          = 8
+    func_sel        = AM_HAL_PIN_8_M1SCK
+    drvstrength     = 12
+    IOMnum          = 1
+
+pin
+    name            = IOM1_SCL
+    desc            = I/O Master 1 I2C clock signal.
+    pinnum          = 8
+    func_sel        = AM_HAL_PIN_8_M1SCL
+    GPOutcfg        = opendrain
+    drvstrength     = 12
+    pullup          = 1_5K
+    IOMnum          = 1
+
+pin
+    name            = IOM1_SDA
+    desc            = I/O Master 1 I2C data signal.
+    pinnum          = 9
+    func_sel        = AM_HAL_PIN_9_M1SDAWIR3
+    GPOutcfg        = opendrain
+    drvstrength     = 12
+    pullup          = 1_5K
+    IOMnum          = 1
+
+# *****************************************************************************
+#  MSPI pins.
+# *****************************************************************************
+pin
+    name            = MSPI_CE0
+    desc            = MSPI chip select.
+    pinnum          = 15
+    func_sel        = AM_HAL_PIN_15_NCE15
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 6
+    CEnum           = 0
+    CEpol           = low
+
+pin
+    name            = MSPI_CE1
+    desc            = MSPI chip select.
+    pinnum          = 32
+    func_sel        = AM_HAL_PIN_32_NCE32
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 6
+    CEnum           = 1
+    CEpol           = low
+
+pin
+    name            = MSPI_D0
+    desc            = MSPI data 0.
+    pinnum          = 22
+    func_sel        = AM_HAL_PIN_22_MSPI0
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D1
+    desc            = MSPI data 1.
+    pinnum          = 26
+    func_sel        = AM_HAL_PIN_26_MSPI1
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D2
+    desc            = MSPI data 2.
+    pinnum          = 4
+    func_sel        = AM_HAL_PIN_4_MSPI2
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D3
+    desc            = MSPI data 3.
+    pinnum          = 23
+    func_sel        = AM_HAL_PIN_23_MSPI3
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D4
+    desc            = MSPI data 4.
+    pinnum          = 0
+    func_sel        = AM_HAL_PIN_0_MSPI4
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D5
+    desc            = MSPI data 5.
+    pinnum          = 1
+    func_sel        = AM_HAL_PIN_1_MSPI5
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D6
+    desc            = MSPI data 6.
+    pinnum          = 2
+    func_sel        = AM_HAL_PIN_2_MSPI6
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_D7
+    desc            = MSPI data 7.
+    pinnum          = 3
+    func_sel        = AM_HAL_PIN_3_MSPI7
+    drvstrength     = 8
+    intdir          = lo2hi
+    IOMnum          = 6
+
+pin
+    name            = MSPI_SCK
+    desc            = MSPI clock.
+    pinnum          = 24
+    func_sel        = AM_HAL_PIN_24_MSPI8
+    drvstrength     = 12
+    intdir          = lo2hi
+    #IOMnum          = 6
+    IOMnum          = 0
+
+# *****************************************************************************
+#  IOS pins.
+# *****************************************************************************
+pin
+    name            = IOS_CE
+    desc            = I/O Slave chip select.
+    pinnum          = 3
+    func_sel        = AM_HAL_PIN_3_SLnCE
+    GPinput         = true
+    CEnum           = 0
+    CEpol           = low
+
+pin
+    name            = IOS_MISO
+    desc            = I/O Slave SPI MISO signal.
+    pinnum          = 2
+    func_sel        = AM_HAL_PIN_2_SLMISO
+    drvstrength     = 12
+
+pin
+    name            = IOS_MOSI
+    desc            = I/O Slave SPI MOSI signal.
+    pinnum          = 1
+    func_sel        = AM_HAL_PIN_1_SLMOSI
+    GPinput         = true
+
+pin
+    name            = IOS_SCK
+    desc            = I/O Slave SPI SCK signal.
+    pinnum          = 0
+    func_sel        = AM_HAL_PIN_0_SLSCK
+    GPinput         = true
+
+pin
+    name            = IOS_SCL
+    desc            = I/O Slave I2C clock signal.
+    pinnum          = 0
+    func_sel        = AM_HAL_PIN_0_SLSCL
+    GPinput         = true
+
+pin
+    name            = IOS_SDA
+    desc            = I/O Slave I2C data signal.
+    pinnum          = 1
+    func_sel        = AM_HAL_PIN_1_SLSDAWIR3
+    GPOutcfg        = opendrain
+    pullup          = 1_5K
+
+pin
+    name            = IOS_INT
+    desc            = I/O Slave interrupt.
+    pinnum          = 4
+    func_sel        = AM_HAL_PIN_4_SLINT
+
+# *****************************************************************************
+#  PDM pins.
+# *****************************************************************************
+pin
+    name            = PDMCLK
+    desc            = PDM CLK.
+    pinnum          = 22
+    func_sel        = AM_HAL_PIN_22_PDMCLK
+    drvstrength     = 2
+
+pin
+    name            = PDM_DATA
+    desc            = PDM DATA.
+    pinnum          = 34
+    func_sel        = AM_HAL_PIN_34_PDMDATA
+    drvstrength     = 2
+
+# *****************************************************************************
+#  ITM pins.
+# *****************************************************************************
+pin
+    name            = ITM_SWO
+    desc            = ITM Serial Wire Output.
+    pinnum          = 41
+    func_sel        = AM_HAL_PIN_41_SWO
+    drvstrength     = 2
+
+# *****************************************************************************
+#  CORE pins.
+# *****************************************************************************
+pin
+    name            = SWDCK
+    desc            = Cortex Serial Wire DCK.
+    pinnum          = 20
+    func_sel        = AM_HAL_PIN_20_SWDCK
+
+pin
+    name            = SWDIO
+    desc            = Cortex Serial Wire DIO.
+    pinnum          = 21
+    func_sel        = AM_HAL_PIN_21_SWDIO
+
+# *****************************************************************************
+#  FIREBALL pins.
+# *****************************************************************************
+pin
+    name            = FIREBALL_CE
+    desc            = Fireball device test board chip select.
+    pinnum          = 30
+    func_sel        = AM_HAL_PIN_30_NCE30
+    drvstrength     = 12
+    intdir          = lo2hi
+    GPOutcfg        = pushpull
+    GPinput         = false
+    IOMnum          = 5
+    CEnum           = 3
+    CEpol           = low

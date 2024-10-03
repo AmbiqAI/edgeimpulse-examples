@@ -1,0 +1,10 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+uart_fullduplex_common.c
+uart_fullduplex_common.h

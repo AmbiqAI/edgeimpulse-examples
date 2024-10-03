@@ -1,16 +1,21 @@
-PLATFORM := apollo5b_eb_revb
+PLATFORM := apollo510_evb
+AS_VERSION := ambiqsuite_b36aab438d0f
+STACK_SIZE_IN_32B_WORDS := 9216
+BOOTLOADER := sbl
 
 include make/helpers.mk
 include make/neuralspot_config.mk
 include make/neuralspot_toolchain.mk
 include make/jlink.mk
 include autogen_$(BOARD)_$(EVB)_$(TOOLCHAIN).mk
-
+# include autogen_apollo5b_evb_arm-none-eabi.mk
 ifeq ($(TOOLCHAIN),arm)
 COMPDIR := armclang
 else ifeq ($(TOOLCHAIN),arm-none-eabi)
 COMPDIR := gcc
 endif
+
+MYBOARD := apollo5b
 
 TARGET = $(local_app_name)
 sources := $(wildcard src/*.c)

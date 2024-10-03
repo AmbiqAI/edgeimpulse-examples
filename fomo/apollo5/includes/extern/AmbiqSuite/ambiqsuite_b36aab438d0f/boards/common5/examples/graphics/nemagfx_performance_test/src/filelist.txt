@@ -1,0 +1,15 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nemagfx_performance_test.c
+nemagfx_performance_test.h
+test_common.c
+display.c
+display.h
+texture
+config

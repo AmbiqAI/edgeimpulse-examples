@@ -1,0 +1,10 @@
+[minimal]
+dx_crys_kernel.h
+dx_env.h
+dx_fpga_env.h
+dx_host.h
+dx_id_registers.h
+dx_nvm.h
+dx_reg_base_host.h
+dx_reg_common.h
+dx_rng.h

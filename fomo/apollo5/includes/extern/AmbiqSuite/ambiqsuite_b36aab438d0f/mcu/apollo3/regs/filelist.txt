@@ -1,0 +1,16 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_reg.h
+am_reg_base_addresses.h
+am_reg_iomstr_cmd.h
+am_reg_jedec.h
+am_reg_m4.h
+am_reg_macros.h
+am_reg_macros_asm.h
+am_mcu_apollo3_info0.h

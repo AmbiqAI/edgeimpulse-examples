@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+calorie_tsvg.h
+DejaVuSans_ttf_kern.c
+DejaVuSans_ttf_kern.h
+power_tsvg.h
+step_tsvg.h

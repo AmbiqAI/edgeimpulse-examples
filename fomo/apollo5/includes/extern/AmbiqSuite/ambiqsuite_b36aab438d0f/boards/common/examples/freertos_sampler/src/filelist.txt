@@ -1,0 +1,28 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+app_queue.c
+app_queue.h
+app_task.c
+app_task.h
+buffer_pool.c
+buffer_pool.h
+filelist.txt
+FreeRTOSConfig.h
+freertos_sampler.c
+freertos_sampler.h
+itm_queue.c
+itm_queue.h
+itm_task.c
+itm_task.h
+rtos.c
+rtos.h
+stimer_ctrl.c
+stimer_ctrl.h
+timer_ctl.c
+timer_ctl.h

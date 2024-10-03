@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+ios_boot_handlers.c
+multi_boot.c
+multi_boot.h
+multi_boot_config.h
+uart_boot_handlers.c

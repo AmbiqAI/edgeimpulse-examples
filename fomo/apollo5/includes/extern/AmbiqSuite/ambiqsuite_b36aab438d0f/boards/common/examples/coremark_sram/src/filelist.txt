@@ -1,0 +1,11 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+coremark_sram_image.c
+coremark_sram_image.h
+coremark_sram.c

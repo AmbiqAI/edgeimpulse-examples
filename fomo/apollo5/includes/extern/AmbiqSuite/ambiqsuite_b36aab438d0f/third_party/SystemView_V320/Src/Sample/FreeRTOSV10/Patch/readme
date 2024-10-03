@@ -1,0 +1,20 @@
+Use the following command to apply the patch file:
+> cd xxxambiqsuite_ROOTxxx/third_party/FreeRTOSv10.1.1
+> patch -p1 < xxxambiqsuite_ROOTxxx/third_party/SystemView_V320/Src/Sample/FreeRTOSV10/Patch/FreeRTOSV10.1.1_AmbiqPorting.patch
+
+You are supposed to see the following print:
+> patching file Source/event_groups.c
+> patching file Source/include/FreeRTOS.h
+> patching file Source/include/task.h
+> patching file Source/list.c
+> patching file Source/portable/GCC/AMapollo2/port.c
+> patching file Source/portable/GCC/AMapollo2/portmacro.h
+> patching file Source/portable/IAR/AMapollo2/port.c
+> patching file Source/portable/IAR/AMapollo2/portmacro.h
+> patching file Source/portable/IAR/ARM_CM4F/portmacro.h
+> patching file Source/portable/Keil/AMapollo2/port.c
+> patching file Source/portable/Keil/AMapollo2/portmacro.h
+> patching file Source/portable/MemMang/heap_4.c
+> patching file Source/queue.c
+> patching file Source/tasks.c
+> patching file Source/timers.c

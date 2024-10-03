@@ -1,0 +1,18 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nex_api.h
+nex_porting.h
+nex_common_types.h
+nex_debug.h
+
+[apollo4b-sdk]
+nex_api.h
+nex_porting.h
+nex_common_types.h
+nex_debug.h

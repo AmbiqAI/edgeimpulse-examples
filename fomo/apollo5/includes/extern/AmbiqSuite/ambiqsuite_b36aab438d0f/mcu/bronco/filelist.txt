@@ -1,0 +1,14 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+hal
+regs
+am_mcu_apollo.h
+
+[bronco-testcase]
+*ALL*

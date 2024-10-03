@@ -1,0 +1,22 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+benchmarks
+FreeRTOS_Plus_POSIX
+mith
+workloads
+FreeRTOSConfig.h
+heap_4_external.c
+daxi_coremark_pro.c
+coremark_pro.h
+posix_demo.c
+posix_demo.h
+rtos.c
+rtos.h
+daxi_test_common.c
+daxi_test_common.h

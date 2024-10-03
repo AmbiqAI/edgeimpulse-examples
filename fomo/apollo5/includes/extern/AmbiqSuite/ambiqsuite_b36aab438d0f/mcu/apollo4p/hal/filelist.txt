@@ -1,0 +1,68 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+mcu
+dsp
+am_hal_access.c
+am_hal_access.h
+am_hal_adc.c
+am_hal_adc.h
+am_hal_audadc.c
+am_hal_audadc.h
+# am_hal_engmon.c
+# am_hal_engmon.h
+am_hal_global.c
+am_hal_global.h
+am_hal_dcu.c
+am_hal_dcu.h
+# am_hal_gpdma.c
+# am_hal_gpdma.h
+am_hal_gpio.c
+am_hal_gpio.h
+am_hal_i2s.c
+am_hal_i2s.h
+# am_hal_ipc.c
+# am_hal_ipc.h
+am_hal_otp.c
+am_hal_otp.h
+am_hal_pdm.c
+am_hal_pdm.h
+am_hal_pin.c
+am_hal_pin.h
+# am_hal_pin_stub.h
+am_hal_pwrctrl.c
+am_hal_pwrctrl.h
+# am_hal_pwrctrl_internal.h
+am_hal_queue.c
+am_hal_queue.h
+am_hal_security.c
+am_hal_security.h
+# am_hal_shmem.c
+# am_hal_shmem.h
+am_hal_status.h
+am_hal_stimer.c
+am_hal_stimer.h
+am_hal_sysctrl.h
+am_hal_system.h
+am_hal_timer.c
+am_hal_timer.h
+am_hal_usb.c
+am_hal_usb.h
+am_hal_usbcharger.h
+am_hal_usbregs.h
+am_hal_utils.h
+am_hal_wdt.c
+am_hal_wdt.h
+
+[apollo4p-testcase]
+am_hal_gpdma.h
+am_hal_gpdma.c
+am_hal_shmem.h
+am_hal_shmem.c
+am_hal_ipc.h
+am_hal_ipc.c

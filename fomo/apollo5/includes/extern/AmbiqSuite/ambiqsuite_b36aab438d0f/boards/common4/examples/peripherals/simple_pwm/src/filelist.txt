@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+simple_pwm.c
+low_power_config.c
+low_power_config.h
+pwm_config.c
+pwm_config.h

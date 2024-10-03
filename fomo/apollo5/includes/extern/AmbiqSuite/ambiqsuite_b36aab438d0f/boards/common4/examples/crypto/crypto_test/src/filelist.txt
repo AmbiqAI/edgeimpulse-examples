@@ -1,0 +1,6 @@
+[minimal]
+am_memory_map.h
+am_resources.c
+crypto_test_data.h
+rsa_keys.h
+crypto_test.c

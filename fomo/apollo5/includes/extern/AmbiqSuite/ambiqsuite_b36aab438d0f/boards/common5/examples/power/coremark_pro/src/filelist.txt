@@ -1,0 +1,28 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+benchmarks
+FreeRTOS_Plus_POSIX
+mith
+workloads
+coremark_pro.c
+coremark_pro.h
+FreeRTOSConfig.h
+heap_4_external.c
+heap_5_external.c
+mpu_config.c
+mpu_config.h
+mspi_device_init.h
+mspi_psram_init.c
+psram.c
+psram.h
+rtos.c
+rtos.h
+am_time.c
+am_time.h
+ambiq_core_config.h

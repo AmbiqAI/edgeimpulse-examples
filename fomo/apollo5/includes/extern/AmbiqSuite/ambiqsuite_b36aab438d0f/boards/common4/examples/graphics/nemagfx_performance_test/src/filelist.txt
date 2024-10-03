@@ -1,0 +1,33 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nemagfx_performance_test.c
+nemagfx_performance_test.h
+simhei30pt4b.c
+simhei30pt4b.h
+simhei30pt8b.c
+simhei30pt8b.h
+simhei34pt4b.c
+simhei34pt4b.h
+
+[apollo4p-sdk]
+img_468x468.z_rgba.h
+img_468x468_tsc6.h
+Ghostscript_Tiger.svg
+tiger.tsvg.h
+tiger.tsvg.h.tsvg
+ume_ugo5_ttf.c
+ume_ugo5_ttf.h
+
+[apollo4l-sdk]
+oli_100x100_argb8888.h
+oli_360x360_argb8888.h
+oli_100x100_rgba565.h
+oli_360x360_rgba565.h
+oli_100x100_tsc6.h
+oli_360x360_tsc6.h

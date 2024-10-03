@@ -1,0 +1,22 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[normal]
+am_bsp_button.c
+am_bsp_button.h
+am_bsp.c
+am_bsp_gpio.c
+am_bsp_gpio.h
+am_bsp.h
+am_bsp_iom.c
+am_bsp_iom.h
+am_bsp_led.c
+am_bsp_led.h
+am_bsp_pin_def.h
+am_bsp_uart.c
+am_bsp_uart.h
+apollo-pinout.csv

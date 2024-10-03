@@ -18,13 +18,17 @@ JLINK_CF = $(BINDIR)/flash_cmds.jlink
 JLINK_RESET_CF = $(BINDIR)/reset_cmds.jlink
 JLINK_UNRESET_CF = $(BINDIR)/unreset_cmds.jlink
 else ifeq ($(ARCH),apollo5)
-JLINK_IF_SPEED = 4000
+JLINK_IF_SPEED = 1000
 ifeq ($(BOOTLOADER),nbl)
 JLINK_PF_ADDR = 0x00400000
 JLINK_DEVICE = AMAP54KK-KBR-nbl
 else
 JLINK_PF_ADDR = 0x00410000
+# ifeq ($(PLATFORM),apollo510_evb)
+# JLINK_DEVICE = AP510NFA-CBR
+# else
 JLINK_DEVICE = AMAP54KK-KBR
+# endif
 endif
 JLINK_CPUFREQ = 96105000
 JLINK_SWOFREQ = 1000000
@@ -34,10 +38,11 @@ JLINK_UNRESET_CF = $(BINDIR)/unreset_cmds.jlink
 endif
 
 ifeq ($(OS),Windows_NT) # for windows
-  JLINK = JLink
+  JLINK = JLink.794
   JLINK_SWO = JLinkSWOViewerCL
 else ifndef EXEEXT # for linux
-  JLINK = JLinkExe$(EXEEXT)
+#   JLINK = JLinkExe$(EXEEXT)
+  JLINK = JLinkExe.794$(EXEEXT)
   UNAME_S := $(shell uname -s)
   ifeq ($(UNAME_S),Darwin)
     JLINK_SWO = JLinkSWOViewerCL
@@ -52,4 +57,4 @@ endif
 JLINK_CMD = -nogui 1 -device $(JLINK_DEVICE) -if SWD -speed $(JLINK_IF_SPEED) -commandfile $(JLINK_CF)
 JLINK_RESET_CMD = -nogui 1 -device $(JLINK_DEVICE) -if SWD -speed $(JLINK_IF_SPEED) -commandfile $(JLINK_RESET_CF)
 JLINK_UNRESET_CMD = -nogui 1 -device $(JLINK_DEVICE) -if SWD -speed $(JLINK_IF_SPEED) -commandfile $(JLINK_UNRESET_CF)
-JLINK_SWO_CMD = -device $(JLINK_DEVICE) -cpufreq $(JLINK_CPUFREQ) -swofreq $(JLINK_SWOFREQ) -itmport 0
+JLINK_SWO_CMD = -device AP510NFA-CBR  -cpufreq $(JLINK_CPUFREQ) -swofreq $(JLINK_SWOFREQ) -itmport 0

@@ -1,0 +1,64 @@
+@startuml
+state IDLE
+state SETUP
+state DATA_TX
+state DATA_RX
+state STATUS_TX
+state STATUS_RX
+
+note \
+"Abbreviation: \nCT - Control Transfer \nSM - State Machine \nZLP - Zero Length Packet" \
+as N1
+
+note \
+"Transitions: \nSolid Line: by Thread \nDashed Line: by ISR" \
+as N2
+
+[*] --> IDLE
+IDLE -[dashed]-> SETUP: SETUP packet Received
+IDLE --> IDLE: STATUS stage ZLP requested
+SETUP --> DATA_TX: IN transfer \n>=MAXPACKET requested
+SETUP --> DATA_RX: OUT transfer \n>=MAXPACKET requested
+SETUP --> STATUS_RX: ZLP requested \n(No Data Stage)
+SETUP --> STATUS_RX: OUT transfer \n <MAXPACKET requested
+SETUP --> STATUS_TX: IN transfer \n <MAXPACKET requested
+SETUP --> SETUP: STATUS stage ZLP requested
+DATA_TX -[dashed]-> DATA_TX: remaining data >MAXPACKET
+DATA_TX -[dashed]-> STATUS_TX: remaining data <=MAXPACKET
+DATA_RX -[dashed]-> DATA_RX: packet ==MAXPACKET received
+DATA_RX -[dashed]-> STATUS_RX: packet <MAXPACKET received
+STATUS_TX -[dashed]-> IDLE: Last Data xfer completed
+STATUS_RX -[dashed]-> IDLE: Last Data xfer completed
+
+IDLE: Previous CT has completed
+IDLE: SM waiting for next SETUP
+note left of IDLE
+We are expecting USB Stack to requreset ZLP at opposite direction here.
+However, due to possible timing implication where host might already
+issue next SETUP packet before we are even able to service the last
+data transfer interrupt, we will deliberately not issue DataEnd to
+USB HW, and set servicedSetupEnd when we are servicing the next SETUP
+to avoid timing issues.
+end note
+SETUP: Awaiting USB Stack to decode and issue transaction request
+SETUP: Moves to next state when request from Stack is received
+note left of SETUP
+In certain timing, especially when RTOS is in use, the interrupt
+routine for the next SETUP packet might come in before the the STATUS
+stage ZLP request is handled. Hence, there is duplicated STATUS stage
+ZLP request handling in SETUP stage as well.
+end note
+DATA_TX: IN transfer of >MAXPACKET is requested
+DATA_TX: Loop and trigger transfer of data
+note bottom of DATA_TX: TODO: check why different with \nSETUP->STATUS_TX condition
+DATA_RX: OUT transfer of >MAXPACKET is requested
+DATA_RX: Loop and trigger transfer of data
+DATA_RX: Note: We do NOT expect this state to be
+DATA_RX: \t  entered
+note bottom of DATA_RX: NOT expected to enter this state
+STATUS_TX: Wait for Data Transfer to complete and
+STATUS_TX: callback xfer complete to USB Stack
+STATUS_RX: Wait for Data Transfer to complete and
+STATUS_RX: callback xfer complete to USB Stack
+
+@enduml

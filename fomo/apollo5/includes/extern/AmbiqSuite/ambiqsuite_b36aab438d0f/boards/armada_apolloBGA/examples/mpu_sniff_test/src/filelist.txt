@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[normal]
+mpu.c
+mpu.h
+mpu_sniff_test.c
+regions.c
+regions.h

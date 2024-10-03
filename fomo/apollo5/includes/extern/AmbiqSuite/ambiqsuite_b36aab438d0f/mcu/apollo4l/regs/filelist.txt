@@ -1,0 +1,25 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_mcu_apollo4l_info0.h
+am_mcu_apollo4l_info1.h
+am_mcu_apollo4l_otp.h
+am_reg.h
+am_reg_base_addresses.h
+am_reg_macros.h
+am_reg_macros_asm.h
+am_reg_mcu.h
+am_reg_itm.h
+am_reg_jedec.h
+am_reg_sysctrl.h
+am_reg_systick.h
+am_reg_tpiu.h
+am_reg_m4.h
+
+[apollo4l-testcase]
+apollo4b_mram.h

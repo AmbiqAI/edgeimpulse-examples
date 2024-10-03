@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+flash_write_apollo2.c
+flash_write_apollo2_info_block.c
+flash_write_apollo2_main_block.c
+flash_write_apollo2_info_block.h
+flash_write_apollo2_main_block.h

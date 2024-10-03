@@ -1,0 +1,12 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_multi_boot_config.h
+mbedtls_config.h
+multi_boot.c
+multi_boot_secure.c

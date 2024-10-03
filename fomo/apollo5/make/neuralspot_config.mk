@@ -22,6 +22,12 @@ endif
 # and EVB is evb, blue_evb, blue_kbr_evb, or blue_kxr_evb, etc
 # Get the first word of the PLATFORM, which is the MCU
 BOARD := $(firstword $(subst _, ,$(PLATFORM)))
+
+# apollo510_evb has a different prefix, override
+ifeq ($(findstring apollo510,$(PLATFORM)),apollo510)
+BOARD := apollo5b
+endif
+
 $(info BOARD: $(BOARD))
 # EVB is the rest of the PLATFORM, which is the EVB
 EVB := $(wordlist 2,$(words $(subst _, ,$(PLATFORM))),$(subst _, ,$(PLATFORM)))
@@ -29,6 +35,7 @@ EVB := $(wordlist 2,$(words $(subst _, ,$(PLATFORM))),$(subst _, ,$(PLATFORM)))
 # Replace spaces with underscores
 space := $(null) #
 EVB := $(subst $(space),_,$(EVB))
+$(info EVB: $(EVB))
 
 # Set the ARCH to apollo3, apollo4, or apollo5
 ifeq ($(findstring apollo3,$(BOARD)),apollo3)
@@ -198,32 +205,20 @@ endif
 ##### TinyUSB Default Config #####
 ifeq ($(ARCH),apollo5)
 DEFINES+= CFG_TUSB_MCU=OPT_MCU_APOLLO5
+ifeq ($(PART),apollo5a)
 DEFINES+= BOARD_DEVICE_RHPORT_SPEED=OPT_MODE_FULL_SPEED
+else ifeq ($(PART),apollo5b)
+DEFINES+= BOARD_DEVICE_RHPORT_SPEED=OPT_MODE_FULL_SPEED
+# DEFINES+=AM_CFG_USB_DMA_MODE_1
+# DEFINES+=AM_CFG_USB_EP2_OUT_DBUF_ENABLE
+# DEFINES+=AM_CFG_USB_EP3_IN_DBUF_ENABLE
+endif
 else
 DEFINES+= CFG_TUSB_MCU=OPT_MCU_APOLLO4
 endif
 # DEFINES+= BOARD_DEVICE_RHPORT_SPEED=OPT_MODE_HIGH_SPEED
 
-##### BLE Defines
-## BLE is only supported by neuralSPOT for AmbiqSuite R4.3.0 and later
-# ifeq ($(AS_VERSION),R4.3.0)
-# 	BLE_SUPPORTED := $(BLE_PRESENT)
-# 	ifeq ($(BLE_SUPPORTED),1)
-# 		DEFINES+= NS_BLE_SUPPORTED
-# 	endif
-# else ifeq ($(AS_VERSION),R4.4.1)
-# 	BLE_SUPPORTED := $(BLE_PRESENT)
-# 	ifeq ($(BLE_SUPPORTED),1)
-# 		DEFINES+= NS_BLE_SUPPORTED
-# 	endif
-# else ifeq ($(AS_VERSION),R3.1.1)
-# 	BLE_SUPPORTED := $(BLE_PRESENT)
-# 	ifeq ($(BLE_SUPPORTED),1)
-# 		DEFINES+= NS_BLE_SUPPORTED
-# 	endif
-# else
-# 	BLE_SUPPORTED := 0
-# endif
+
 
 DEFINES+= SEC_ECC_CFG=SEC_ECC_CFG_HCI
 # DEFINES+= WSF_TRACE_ENABLED
@@ -234,21 +229,6 @@ DEFINES+= AM_DEBUG_PRINTF
 # 1 = load TF library with debug info, turn on TF debug statements
 MLDEBUG ?= 0
 
-# ifeq ($(TF_VERSION),d5f819d_Aug_10_2023)
-# 	DEFINES+= NS_TFSTRUCTURE_RECENT
-# endif
-# ifeq ($(TF_VERSION),0264234_Nov_15_2023)
-# 	DEFINES+= NS_TFSTRUCTURE_RECENT
-# endif
-# ifeq ($(TF_VERSION),fecdd5d)
-# 	DEFINES+= NS_TFSTRUCTURE_RECENT
-# endif
-# ifeq ($(TF_VERSION),ce72f7b8_Feb_17_2024)
-# 	DEFINES+= NS_TFSTRUCTURE_RECENT
-# endif
-# ifeq ($(TF_VERSION),tanh)
-# 	DEFINES+= NS_TFSTRUCTURE_RECENT
-# endif
 
 DEFINES+= NS_TFSTRUCTURE_RECENT
 

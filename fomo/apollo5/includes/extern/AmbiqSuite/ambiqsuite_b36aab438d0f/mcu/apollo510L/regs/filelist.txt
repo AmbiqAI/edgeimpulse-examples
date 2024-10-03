@@ -1,0 +1,18 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_mcu_apollo510L_mraminfo0.h
+am_mcu_apollo510L_mraminfo1.h
+am_mcu_apollo510L_mraminfoc.h
+am_mcu_apollo510L_otpinfo0.h
+am_mcu_apollo510L_otpinfo1.h
+am_mcu_apollo510L_otpinfoc.h
+am_reg.h
+am_reg_base_addresses.h
+am_reg_jedec.h
+am_reg_macros.h

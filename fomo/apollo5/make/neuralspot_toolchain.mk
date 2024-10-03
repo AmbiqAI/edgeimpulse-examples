@@ -135,9 +135,10 @@ ASMFLAGS+= -gdwarf-4
 ASMFLAGS+= -Wa,armasm,--pd,"__UVISION_VERSION SETA 538" -Wa,armasm,--pd,"APOLLO4p_2048 SETA 1"
 endif
 
-$(info Running makefile for $(PART)_$(EVB))
+$(info Running makefile for $(PLATFORM))
 DEFINES+= NEURALSPOT
-DEFINES+= $(PART)_$(EVB)
+
+DEFINES+= $(PLATFORM)
 DEFINES+= PART_$(PART)
 ifeq ($(PART),apollo4b)
 DEFINES+= AM_PART_APOLLO4B
@@ -168,8 +169,12 @@ ifeq ($(PART),apollo5b)
 DEFINES+= AM_PART_APOLLO5B
 ifeq ($(EVB),eb)
 DEFINES+= apollo5_eb
-else
+else 
+ifeq ($(EVB),eb_revb)
 DEFINES+= apollo5_eb_revb
+else
+DEFINES+= apollo510_evb
+endif
 endif
 endif
 

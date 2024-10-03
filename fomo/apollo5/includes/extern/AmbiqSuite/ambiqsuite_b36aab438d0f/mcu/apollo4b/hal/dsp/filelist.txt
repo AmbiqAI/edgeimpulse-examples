@@ -1,0 +1,10 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_hal_interrupt.c
+am_hal_interrupt.h

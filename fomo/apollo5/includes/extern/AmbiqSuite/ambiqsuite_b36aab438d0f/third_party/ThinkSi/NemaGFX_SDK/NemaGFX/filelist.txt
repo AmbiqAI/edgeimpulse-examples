@@ -1,0 +1,18 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nema_programHW.h
+nema_rasterizer.h
+nema_regs.h
+nema_ringbuffer.h
+nema_shaderSpecific.h
+
+[nemagfx-sdk]
+nema_blender.h
+nema_programHW.h
+nema_regs.h

@@ -1,0 +1,11 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+binary_array.c
+binary_array.h
+dialog_prox_gtl.c

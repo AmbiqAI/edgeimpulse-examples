@@ -1,0 +1,13 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+exactle_fit_amota_multi_boot.c
+exactle_fit_amota_multi_boot_config.h
+exactle_fit_amota_multi_boot.h
+image_boot_handlers.c
+image_boot_handlers.h

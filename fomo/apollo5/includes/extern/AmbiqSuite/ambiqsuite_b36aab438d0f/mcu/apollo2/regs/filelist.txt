@@ -1,0 +1,33 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+am_reg_adc.h
+am_reg_base_addresses.h
+am_reg_cachectrl.h
+am_reg_clkgen.h
+am_reg_ctimer.h
+am_reg_flashctrl.h
+am_reg_gpio.h
+am_reg_iomstr.h
+am_reg_ioslave.h
+am_reg_itm.h
+am_reg_jedec.h
+am_reg_macros.h
+am_reg_macros_asm.h
+am_reg_mcuctrl.h
+am_reg_nvic.h
+am_reg_pdm.h
+am_reg_pwrctrl.h
+am_reg_rstgen.h
+am_reg_rtc.h
+am_reg_sysctrl.h
+am_reg_systick.h
+am_reg_tpiu.h
+am_reg_uart.h
+am_reg_vcomp.h
+am_reg_wdt.h

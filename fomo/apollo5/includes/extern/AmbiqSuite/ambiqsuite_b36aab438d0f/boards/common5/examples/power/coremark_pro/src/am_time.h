@@ -1,0 +1,44 @@
+//*****************************************************************************
+//
+//! @file time.h
+//!
+//! @brief Systick support functions for coremark.
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+// ${copyright}
+//
+// This is part of revision ${version} of the AmbiqSuite Development Package.
+//
+//*****************************************************************************
+#ifndef TIME_H
+#define TIME_H
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#if defined(AM_BARE_METAL)
+//*****************************************************************************
+//
+// External variable definitions
+//
+//*****************************************************************************
+extern volatile uint32_t g_ui32SysTickWrappedTime;
+
+//*****************************************************************************
+//
+// External function definitions
+//
+//*****************************************************************************
+extern void SysTick_Handler(void);
+#endif //defined(AM_BARE_METAL)
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // TIME_H

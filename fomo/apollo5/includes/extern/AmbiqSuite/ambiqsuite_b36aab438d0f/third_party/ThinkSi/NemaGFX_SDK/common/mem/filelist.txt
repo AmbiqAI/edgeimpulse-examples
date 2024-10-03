@@ -1,0 +1,14 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+nema_devmem.h
+tsi_malloc.h
+tsi_malloc_intern.h
+
+[nemagfx-sdk]
+*ALL*

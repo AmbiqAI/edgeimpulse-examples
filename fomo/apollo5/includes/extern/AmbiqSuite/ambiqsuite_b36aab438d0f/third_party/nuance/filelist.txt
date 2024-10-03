@@ -1,0 +1,11 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[nuance]
+libminiElvis.a
+NuanceWakeupAPI.h
+MxEBlob.h

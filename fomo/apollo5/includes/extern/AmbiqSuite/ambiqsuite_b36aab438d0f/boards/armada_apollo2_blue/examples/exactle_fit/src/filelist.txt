@@ -1,0 +1,10 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+exactle_fit.c
+hci_apollo_config.h

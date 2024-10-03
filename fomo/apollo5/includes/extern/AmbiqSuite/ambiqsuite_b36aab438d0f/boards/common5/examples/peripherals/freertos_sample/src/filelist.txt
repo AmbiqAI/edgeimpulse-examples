@@ -1,0 +1,18 @@
+#******************************************************************************
+#
+# filelist.txt
+#
+# List of files to be included in public builds and delivered to customers.
+#
+#******************************************************************************
+[minimal]
+freertos_sample.c
+freertos_sample.h
+FreeRTOSConfig.h
+hello_task.c
+hello_task.h
+rtos.c
+rtos.h
+timer_task.c
+timer_task.h
+
